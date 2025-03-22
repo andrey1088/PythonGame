@@ -29,8 +29,8 @@ class Person:
             self.pressure_response.append(_('flirt'))
         else:
             self.name = assign_unique_name(available_male_names)
-        race = random.choice(get_data('races', 'npc'))
-        self.race = _(race) if self.role in get_data('non_humans', 'npc') else _('Human')
+        race = _('Vampire') if self.role == _('Wanderer') else random.choice(get_data('races', 'npc'))
+        self.race = _(race) if get_data('roles', 'npc')[npc_id] in get_data('non_humans', 'npc') else _('Human')
         self.personalities.append(_(random.choice(get_data('personalities', 'npc'))))
 
         self.alibi = 'Unknown'
@@ -45,6 +45,7 @@ class Person:
         return str({
             'name': self.name,
             'role': self.role,
+            'race': self.race,
             'personalities': self.personalities,
             'pressure_response': self.pressure_response,
             'connections': self.connections,

@@ -3,7 +3,7 @@
     "female_names": ["Elsa", "Fiona", "Alice", "Lina"],
     "roles": ["Blacksmith", "Innkeeper", "Healer", "Merchant", "Hunter", "Priest", "Farmer", "Wanderer", "Elder", "Drunkard"],
     "female_roles": ["Healer", "Merchant", "Farmer", "Elder"],
-    "races": ["Human", "Half-Elf", "Goblin", "Half-Orc", "Vampire"],
+    "races": ["Human", "Half-Elf", "Goblin", "Half-Orc"],
     "personalities": ["Strong-willed", "Cowardly", "Greedy", "Cunning", "Straightforward", "Silent", "Possessed"],
     "non_humans": ["Healer", "Hunter", "Merchant", "Wanderer"],
     "pressure_response": ["Persuasion", "Threats", "Bribery", "Blackmail"]
