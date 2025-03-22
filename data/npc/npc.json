@@ -1,0 +1,7 @@
+{
+    "names": ["Gregor", "Elsa", "Rickard", "Fiona", "Boris", "Alice", "Darius", "Thomas", "Lina", "Martin"],
+    "roles": ["Blacksmith", "Innkeeper", "Healer", "Merchant", "Hunter", "Priest", "Farmer", "Wanderer", "Elder", "Drunkard"],
+    "races": ["Human", "Half-Elf", "Goblin", "Half-Orc", "Vampire"],
+    "personalities": ["Strong-willed", "Cowardly", "Greedy", "Cunning", "Straightforward", "Lover", "Silent", "Possessed"],
+    "non_humans": ["Healer", "Hunter", "Merchant", "Wanderer"]
+}
