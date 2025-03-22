@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-22 11:56+0200\n"
+"POT-Creation-Date: 2025-03-22 12:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,38 +97,30 @@ msgstr "Староста"
 msgid "Drunkard"
 msgstr "Пьяница"
 
-#: npc_generator/npc_generator.py:29
-msgid "Strong-willed"
-msgstr "Твёрдый"
-
-#: npc_generator/npc_generator.py:30
-msgid "Cowardly"
-msgstr "Трусливый"
-
-#: npc_generator/npc_generator.py:31
-msgid "Greedy"
-msgstr "Жадный"
-
-#: npc_generator/npc_generator.py:32
-msgid "Cunning"
-msgstr "Хитрый"
-
-#: npc_generator/npc_generator.py:33
-msgid "Straightforward"
-msgstr "Прямолинейный"
-
-#: npc_generator/npc_generator.py:34
-msgid "Lover"
-msgstr "Любовница"
-
-#: npc_generator/npc_generator.py:35
-msgid "Silent"
-msgstr "Молчаливый"
-
-#: npc_generator/npc_generator.py:36
-msgid "Possessed"
-msgstr "Одержимый"
-
-#: npc_generator/npc_generator.py:43
+#: npc_generator/npc_generator.py:17
 msgid "Human"
 msgstr "Человек"
+
+#~ msgid "Strong-willed"
+#~ msgstr "Твёрдый"
+
+#~ msgid "Cowardly"
+#~ msgstr "Трусливый"
+
+#~ msgid "Greedy"
+#~ msgstr "Жадный"
+
+#~ msgid "Cunning"
+#~ msgstr "Хитрый"
+
+#~ msgid "Straightforward"
+#~ msgstr "Прямолинейный"
+
+#~ msgid "Lover"
+#~ msgstr "Любовница"
+
+#~ msgid "Silent"
+#~ msgstr "Молчаливый"
+
+#~ msgid "Possessed"
+#~ msgstr "Одержимый"

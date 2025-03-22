@@ -78,39 +78,7 @@ msgstr ""
 msgid "Drunkard"
 msgstr ""
 
-#: npc_generator/npc_generator.py:29
-msgid "Strong-willed"
-msgstr ""
-
-#: npc_generator/npc_generator.py:30
-msgid "Cowardly"
-msgstr ""
-
-#: npc_generator/npc_generator.py:31
-msgid "Greedy"
-msgstr ""
-
-#: npc_generator/npc_generator.py:32
-msgid "Cunning"
-msgstr ""
-
-#: npc_generator/npc_generator.py:33
-msgid "Straightforward"
-msgstr ""
-
-#: npc_generator/npc_generator.py:34
-msgid "Lover"
-msgstr ""
-
-#: npc_generator/npc_generator.py:35
-msgid "Silent"
-msgstr ""
-
-#: npc_generator/npc_generator.py:36
-msgid "Possessed"
-msgstr ""
-
-#: npc_generator/npc_generator.py:43
+#: npc_generator/npc_generator.py:17
 #, fuzzy
 msgid "Human"
 msgstr "Humah11"

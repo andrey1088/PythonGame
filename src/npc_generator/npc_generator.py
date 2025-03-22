@@ -1,7 +1,7 @@
 import random
 import json
 import os
-from translation import _
+from src.translation import _
 
 def generate_npc(npc_id):
     names = get_data(key='names')
