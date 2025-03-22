@@ -1,4 +1,4 @@
-from src.translation import _
+from src.translation.translation import _
 
 translations = [
         _("Gregor"),

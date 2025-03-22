@@ -1,13 +1,8 @@
 import random
-import gettext
+from src.translation.translation import _
 import os
 import json
-
-# Localization setup
-locale_dir = os.path.join(os.path.dirname(__file__), '../locale')
-gettext.bindtextdomain('messages', locale_dir)
-gettext.textdomain('messages')
-_ = gettext.gettext  # Translation function
+from src.murderer_generator.murderer_generator import assign_murderer_type
 
 def get_data(key: str) -> list:
     try:
@@ -39,6 +34,7 @@ class Person:
         self.gender = 'Female' if self.role in get_data('female_roles') else 'Male'
         self.personalities = []
         self.pressure_response = [random.choice(get_data('pressure_response'))]
+        self.murderer_type = None
         if self.gender == 'Female':
             self.name = assign_unique_name(available_female_names)
             self.personalities = ['lover']
@@ -57,7 +53,8 @@ class Person:
         self.connections = relationships
 
     def __repr__(self):
-        return f'<Person {self.name} ({self.role}), {self.gender}, {self.race}, {self.personalities}, {self.pressure_response}, {self.connections}>'
+        murderer_info = f", {self.murderer_type.__class__.__name__}" if self.murderer_type else ""
+        return f"<Person {self.name} ({self.role}), {self.gender}, {self.race}, {self.personalities}, {self.pressure_response}, {self.connections}, {murderer_info}>"
 
 # Generate NPCs
 npc_list = [Person(i) for i in range(len(get_data('roles')))]
@@ -69,13 +66,14 @@ def assign_relationships() -> None:
     # Assign main roles
     main_roles = ['Victim', 'Killer']
     main_npcs = random.sample(npc_list, 2)
-    killer = None
+    murderer = None
     victim = None
 
     for i in range(len(main_roles)):
         main_npcs[i].set_relationships({'role': main_roles[i]})
         if main_roles[i] == 'Killer':
-            killer = main_npcs[i]
+            murderer = main_npcs[i]
+            murderer.murderer_type = assign_murderer_type(murderer)
         else:
             victim = main_npcs[i]
 
@@ -86,7 +84,7 @@ def assign_relationships() -> None:
 
     # Set connections
     for accomplice in accomplices:
-        accomplice.set_relationships({'role': 'Accomplice', 'knows_about': [killer.name]})
+        accomplice.set_relationships({'role': 'Accomplice', 'knows_about': [murderer.name]})
     for helper in helpers:
         helper.set_relationships({'role': 'Helper', 'knows_about': [victim.name]})
     for neutral in neutral_npcs:
@@ -94,6 +92,5 @@ def assign_relationships() -> None:
 
 assign_relationships()
 
-# Print NPC list
-for npc in npc_list:
-    print(npc)  # Later, this will be saved to a database
+for item in npc_list:
+    print(item)
