@@ -53,11 +53,46 @@ class Person:
         self.knows_about = []
         self.suspect = False
 
+    def set_relationships(self, relationships: dict) -> None:
+        self.connections = relationships
+
     def __repr__(self):
-        return f'<Person {self.name} ({self.role}), {self.gender}, {self.race}, {self.personalities}, {self.pressure_response}>'
+        return f'<Person {self.name} ({self.role}), {self.gender}, {self.race}, {self.personalities}, {self.pressure_response}, {self.connections}>'
 
 # Generate NPCs
 npc_list = [Person(i) for i in range(len(get_data('roles')))]
+
+# Assign relationships
+def assign_relationships() -> None:
+    random.shuffle(npc_list)
+
+    # Assign main roles
+    main_roles = ['Victim', 'Killer']
+    main_npcs = random.sample(npc_list, 2)
+    killer = None
+    victim = None
+
+    for i in range(len(main_roles)):
+        main_npcs[i].set_relationships({'role': main_roles[i]})
+        if main_roles[i] == 'Killer':
+            killer = main_npcs[i]
+        else:
+            victim = main_npcs[i]
+
+    # Assign 2 accomplices, 3 helpers, and 2 neutrals
+    accomplices = random.sample([npc for npc in npc_list if npc not in main_npcs], 2)
+    helpers = random.sample([npc for npc in npc_list if npc not in accomplices and npc not in main_npcs], 3)
+    neutral_npcs = [npc for npc in npc_list if npc not in accomplices and npc not in helpers and npc not in main_npcs]
+
+    # Set connections
+    for accomplice in accomplices:
+        accomplice.set_relationships({'role': 'Accomplice', 'knows_about': [killer.name]})
+    for helper in helpers:
+        helper.set_relationships({'role': 'Helper', 'knows_about': [victim.name]})
+    for neutral in neutral_npcs:
+        neutral.set_relationships({'role': 'Neutral'})
+
+assign_relationships()
 
 # Print NPC list
 for npc in npc_list:
