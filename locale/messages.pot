@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-22 12:55+0200\n"
+"POT-Creation-Date: 2025-03-22 20:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,86 +17,192 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/npc/npc.py:4
+#: ../src/npc_generator/npc_generator.py:21
+#: ../src/npc_generator/npc_generator.py:25 ../src/dict/npc.py:30
+msgid "Female"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:21 ../src/dict/npc.py:29
+msgid "Male"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:28 ../src/dict/npc.py:31
+msgid "Lover"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:29
+msgid "flirt"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:33 ../src/dict/npc.py:24
+msgid "Human"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:62
+msgid "Victim"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:62
+#: ../src/npc_generator/npc_generator.py:69
+msgid "Killer"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:82
+msgid "Accomplice"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:84
+msgid "Helper"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:86
+msgid "Neutral"
+msgstr ""
+
+#: ../src/utils/utils.py:11
+msgid "Data file not found."
+msgstr ""
+
+#: ../src/utils/utils.py:14
+msgid "Error decoding JSON data."
+msgstr ""
+
+#: ../src/dict/npc.py:4
 msgid "Gregor"
 msgstr ""
 
-#: data/npc/npc.py:5
+#: ../src/dict/npc.py:5
 msgid "Elsa"
 msgstr ""
 
-#: data/npc/npc.py:6
+#: ../src/dict/npc.py:6
 msgid "Rickard"
 msgstr ""
 
-#: data/npc/npc.py:7
+#: ../src/dict/npc.py:7
 msgid "Fiona"
 msgstr ""
 
-#: data/npc/npc.py:8
+#: ../src/dict/npc.py:8
 msgid "Boris"
 msgstr ""
 
-#: data/npc/npc.py:9
+#: ../src/dict/npc.py:9
 msgid "Alice"
 msgstr ""
 
-#: data/npc/npc.py:10
+#: ../src/dict/npc.py:10
 msgid "Darius"
 msgstr ""
 
-#: data/npc/npc.py:11
+#: ../src/dict/npc.py:11
 msgid "Thomas"
 msgstr ""
 
-#: data/npc/npc.py:12
+#: ../src/dict/npc.py:12
 msgid "Lina"
 msgstr ""
 
-#: data/npc/npc.py:13
+#: ../src/dict/npc.py:13
 msgid "Martin"
 msgstr ""
 
-#: data/npc/npc.py:14
+#: ../src/dict/npc.py:14
 msgid "Blacksmith"
 msgstr ""
 
-#: data/npc/npc.py:15
+#: ../src/dict/npc.py:15
 msgid "Innkeeper"
 msgstr ""
 
-#: data/npc/npc.py:16
+#: ../src/dict/npc.py:16
 msgid "Healer"
 msgstr ""
 
-#: data/npc/npc.py:17
+#: ../src/dict/npc.py:17
 msgid "Merchant"
 msgstr ""
 
-#: data/npc/npc.py:18
+#: ../src/dict/npc.py:18
 msgid "Hunter"
 msgstr ""
 
-#: data/npc/npc.py:19
+#: ../src/dict/npc.py:19
 msgid "Priest"
 msgstr ""
 
-#: data/npc/npc.py:20
+#: ../src/dict/npc.py:20
 msgid "Farmer"
 msgstr ""
 
-#: data/npc/npc.py:21
+#: ../src/dict/npc.py:21
 msgid "Wanderer"
 msgstr ""
 
-#: data/npc/npc.py:22
+#: ../src/dict/npc.py:22
 msgid "Elder"
 msgstr ""
 
-#: data/npc/npc.py:23
+#: ../src/dict/npc.py:23
 msgid "Drunkard"
 msgstr ""
 
-#: npc_generator/npc_generator.py:17
-msgid "Human"
+#: ../src/dict/npc.py:25
+msgid "Half-Elf"
+msgstr ""
+
+#: ../src/dict/npc.py:26
+msgid "Goblin"
+msgstr ""
+
+#: ../src/dict/npc.py:27
+msgid "Half-Orc"
+msgstr ""
+
+#: ../src/dict/npc.py:28
+msgid "Vampire"
+msgstr ""
+
+#: ../src/dict/npc.py:32
+msgid "Cowardly"
+msgstr ""
+
+#: ../src/dict/npc.py:33
+msgid "Strong-willed"
+msgstr ""
+
+#: ../src/dict/npc.py:34
+msgid "Greedy"
+msgstr ""
+
+#: ../src/dict/npc.py:35
+msgid "Cunning"
+msgstr ""
+
+#: ../src/dict/npc.py:36
+msgid "Straightforward"
+msgstr ""
+
+#: ../src/dict/npc.py:37
+msgid "Silent"
+msgstr ""
+
+#: ../src/dict/npc.py:38
+msgid "Possessed"
+msgstr ""
+
+#: ../src/dict/npc.py:39
+msgid "Persuasion"
+msgstr ""
+
+#: ../src/dict/npc.py:40
+msgid "Threats"
+msgstr ""
+
+#: ../src/dict/npc.py:41
+msgid "Bribery"
+msgstr ""
+
+#: ../src/dict/npc.py:42
+msgid "Blackmail"
 msgstr ""

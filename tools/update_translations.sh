@@ -1,6 +1,6 @@
 #!/bin/bash
 
-find . -name "*.py" | xargs xgettext --from-code=UTF-8 -o ../locale/messages.pot
+find ../src/ -name "*.py" | xargs xgettext --from-code=UTF-8 -o ../locale/messages.pot
 
 for lang in ../locale/*; do
     if [ -d "$lang/LC_MESSAGES" ]; then
