@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-22 19:35+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .././src/npc_generator/npc_generator.py:23
+#: .././src/npc_generator/npc_generator.py:27 .././src/dict/npc.py:30
+msgid "Female"
+msgstr ""
+
+#: .././src/npc_generator/npc_generator.py:23 .././src/dict/npc.py:29
+msgid "Male"
+msgstr ""
+
+#: .././src/npc_generator/npc_generator.py:30 .././src/dict/npc.py:31
+msgid "Lover"
+msgstr ""
+
+#: .././src/npc_generator/npc_generator.py:31
+msgid "flirt"
+msgstr ""
+
+#: .././src/npc_generator/npc_generator.py:35 .././src/dict/npc.py:24
+msgid "Human"
+msgstr ""
+
+#: .././src/utils/utils.py:11
+msgid "Data file not found."
+msgstr ""
+
+#: .././src/utils/utils.py:14
+msgid "Error decoding JSON data."
+msgstr ""
+
+#: .././src/dict/npc.py:4
+msgid "Gregor"
+msgstr ""
+
+#: .././src/dict/npc.py:5
+msgid "Elsa"
+msgstr ""
+
+#: .././src/dict/npc.py:6
+msgid "Rickard"
+msgstr ""
+
+#: .././src/dict/npc.py:7
+msgid "Fiona"
+msgstr ""
+
+#: .././src/dict/npc.py:8
+msgid "Boris"
+msgstr ""
+
+#: .././src/dict/npc.py:9
+msgid "Alice"
+msgstr ""
+
+#: .././src/dict/npc.py:10
+msgid "Darius"
+msgstr ""
+
+#: .././src/dict/npc.py:11
+msgid "Thomas"
+msgstr ""
+
+#: .././src/dict/npc.py:12
+msgid "Lina"
+msgstr ""
+
+#: .././src/dict/npc.py:13
+msgid "Martin"
+msgstr ""
+
+#: .././src/dict/npc.py:14
+msgid "Blacksmith"
+msgstr ""
+
+#: .././src/dict/npc.py:15
+msgid "Innkeeper"
+msgstr ""
+
+#: .././src/dict/npc.py:16
+msgid "Healer"
+msgstr ""
+
+#: .././src/dict/npc.py:17
+msgid "Merchant"
+msgstr ""
+
+#: .././src/dict/npc.py:18
+msgid "Hunter"
+msgstr ""
+
+#: .././src/dict/npc.py:19
+msgid "Priest"
+msgstr ""
+
+#: .././src/dict/npc.py:20
+msgid "Farmer"
+msgstr ""
+
+#: .././src/dict/npc.py:21
+msgid "Wanderer"
+msgstr ""
+
+#: .././src/dict/npc.py:22
+msgid "Elder"
+msgstr ""
+
+#: .././src/dict/npc.py:23
+msgid "Drunkard"
+msgstr ""
+
+#: .././src/dict/npc.py:25
+msgid "Half-Elf"
+msgstr ""
+
+#: .././src/dict/npc.py:26
+msgid "Goblin"
+msgstr ""
+
+#: .././src/dict/npc.py:27
+msgid "Half-Orc"
+msgstr ""
+
+#: .././src/dict/npc.py:28
+msgid "Vampire"
+msgstr ""
