@@ -1,32 +1,17 @@
 import random
-import json
+import gettext
 import os
-from src.translation import _
+import json
 
-def generate_npc(npc_id):
-    names = get_data(key='names')
-    roles = get_data(key='roles')
-    races = get_data(key='races')
-    non_humans = get_data(key='non_humans')
-    personalities = get_data(key='personalities')
+# Localization setup
+locale_dir = os.path.join(os.path.dirname(__file__), 'locale')
+gettext.bindtextdomain('messages', locale_dir)
+gettext.textdomain('messages')
+_ = gettext.gettext  # Translation function
 
-    npc = {
-        "id": npc_id,
-        "name": random.choice(names),
-        "role": roles[npc_id],  # Each NPC is assigned a unique role
-        "race": random.choice(races) if roles[npc_id] in non_humans else _("Human"),
-        "personality": random.choice(personalities),
-        "pressure_response": random.choice(["Persuasion", "Threats", "Bribery", "Blackmail", "Flirt"]),
-        "connections": {},  # Relationships between NPCs will be added later
-        "alibi": "Unknown",
-        "knows_about": [],
-        "suspect": False
-    }
 
-    return npc
-
-def get_data(*, key: str) -> list:
-    file = open(os.path.join(os.path.dirname(__file__), "../data/npc/npc.json"), 'r')
+def get_data(key: str) -> list:
+    file = open(os.path.join(os.path.dirname(__file__), '../data/npc/npc.json'), 'r')
     loaded_data = json.load(file)
     result_list = []
 
@@ -37,14 +22,36 @@ def get_data(*, key: str) -> list:
 
     return result_list
 
-def print_npc_list():
-    names = get_data(key='names')
 
-    npc_list = [generate_npc(i) for i in range(len(names))]
+class Person:
+    def __init__(self, npc_id):
+        self.id = npc_id
+        self.role = get_data(key='roles')[npc_id]
+        self.gender = 'Femail' if self.role in get_data('femail_roles') else 'Mail'
+        self.personalities = []
+        self.pressure_response = [random.choice(get_data(key='pressure_response'))]
 
-    # Print NPC list
-    for npc in npc_list:
-        print(npc)  # Later, this will be saved to a database
+        if self.gender == 'Femail':
+            self.name = random.choice(get_data(key='femail_names'))
+            self.personalities = ['lover']
+            self.pressure_response.append('Flirt')
+        else:
+            self.name = random.choice(get_data(key='mail_names'))
 
-if __name__ == "__main__":
-    print_npc_list()
+        self.race = random.choice(get_data(key='races')) if self.role in get_data(key='non_humans') else 'Human'
+        self.personalities.append(random.choice(get_data(key='personalities')))
+
+        self.connections = {}  # Relationships between NPCs will be added later
+        self.alibi = 'Unknown'
+        self.knows_about = []
+        self.suspect = False
+
+    def __repr__(self):
+        return f'<Person {self.name} ({self.role}), {self.race}, {self.personalities}, {self.pressure_response}>'
+
+# Generate 10 NPCs
+npc_list = [Person(i) for i in range(10)]
+
+# Print NPC list
+for npc in npc_list:
+    print(npc)  # Later, this will be saved to a database

@@ -1,7 +1,10 @@
 {
-    "names": ["Gregor", "Elsa", "Rickard", "Fiona", "Boris", "Alice", "Darius", "Thomas", "Lina", "Martin"],
+    "mail_names": ["Gregor", "Rickard", "Boris", "Darius", "Thomas", "Martin"],
+    "femail_names": ["Elsa", "Fiona", "Alice", "Lina"],
     "roles": ["Blacksmith", "Innkeeper", "Healer", "Merchant", "Hunter", "Priest", "Farmer", "Wanderer", "Elder", "Drunkard"],
+    "femail_roles": ["Healer", "Merchant", "Farmer", "Elder"],
     "races": ["Human", "Half-Elf", "Goblin", "Half-Orc", "Vampire"],
-    "personalities": ["Strong-willed", "Cowardly", "Greedy", "Cunning", "Straightforward", "Lover", "Silent", "Possessed"],
-    "non_humans": ["Healer", "Hunter", "Merchant", "Wanderer"]
+    "personalities": ["Strong-willed", "Cowardly", "Greedy", "Cunning", "Straightforward", "Silent", "Possessed"],
+    "non_humans": ["Healer", "Hunter", "Merchant", "Wanderer"],
+    "pressure_response": ["Persuasion", "Threats", "Bribery", "Blackmail"]
 }
