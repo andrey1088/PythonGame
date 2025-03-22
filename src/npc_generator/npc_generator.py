@@ -3,8 +3,8 @@ from src.translation.translation import _
 from src.murderer_generator.murderer_generator import assign_murderer_type
 from src.utils.utils import get_data
 
-available_male_names = get_data('male_names')
-available_female_names = get_data('female_names')
+available_male_names = get_data('male_names', 'npc')
+available_female_names = get_data('female_names', 'npc')
 
 def assign_unique_name(available_names):
     name = random.choice(available_names)
@@ -17,10 +17,10 @@ class Person:
 
     def __init__(self, npc_id):
         self.id = npc_id
-        self.role = _(get_data('roles')[npc_id])
-        self.gender = _('Female') if get_data('roles')[npc_id] in get_data('female_roles') else _('Male')
+        self.role = _(get_data('roles', 'npc')[npc_id])
+        self.gender = _('Female') if get_data('roles', 'npc')[npc_id] in get_data('female_roles', 'npc') else _('Male')
         self.personalities = []
-        self.pressure_response = [_(random.choice(get_data('pressure_response')))]
+        self.pressure_response = [_(random.choice(get_data('pressure_response', 'npc')))]
         self.murderer_type = None
         if self.gender == _('Female'):
             self.name = assign_unique_name(available_female_names)
@@ -29,9 +29,9 @@ class Person:
             self.pressure_response.append(_('flirt'))
         else:
             self.name = assign_unique_name(available_male_names)
-        race = random.choice(get_data('races'))
-        self.race = _(race) if self.role in get_data(key='non_humans') else _('Human')
-        self.personalities.append(_(random.choice(get_data(key='personalities'))))
+        race = random.choice(get_data('races', 'npc'))
+        self.race = _(race) if self.role in get_data('non_humans', 'npc') else _('Human')
+        self.personalities.append(_(random.choice(get_data('personalities', 'npc'))))
 
         self.alibi = 'Unknown'
         self.connections = {}
@@ -52,7 +52,7 @@ class Person:
         })
 
 # Generate NPCs
-npc_list = [Person(i) for i in range(len(get_data('roles')))]
+npc_list = [Person(i) for i in range(len(get_data('roles', 'npc')))]
 
 # Assign relationships
 def assign_relationships() -> None:
