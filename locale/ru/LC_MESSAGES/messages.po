@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-22 20:07+0200\n"
+"POT-Creation-Date: 2025-03-23 08:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,46 +17,53 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/npc_generator/npc_generator.py:21
-#: ../src/npc_generator/npc_generator.py:25 ../src/dict/npc.py:30
+#: ../src/npc_generator/npc_generator.py:24
+#: ../src/npc_generator/npc_generator.py:29 ../src/dict/npc.py:30
 msgid "Female"
 msgstr "Женщина"
 
-#: ../src/npc_generator/npc_generator.py:21 ../src/dict/npc.py:29
+#: ../src/npc_generator/npc_generator.py:24 ../src/dict/npc.py:29
 msgid "Male"
 msgstr "Мужчина"
 
-#: ../src/npc_generator/npc_generator.py:28 ../src/dict/npc.py:31
+#: ../src/npc_generator/npc_generator.py:32 ../src/dict/npc.py:31
 msgid "Lover"
 msgstr "Любовница"
 
-#: ../src/npc_generator/npc_generator.py:29
+#: ../src/npc_generator/npc_generator.py:33
 msgid "flirt"
 msgstr "Флирт"
 
-#: ../src/npc_generator/npc_generator.py:33 ../src/dict/npc.py:24
+#: ../src/npc_generator/npc_generator.py:36 ../src/dict/npc.py:28
+msgid "Vampire"
+msgstr "Вампир"
+
+#: ../src/npc_generator/npc_generator.py:36 ../src/dict/npc.py:21
+msgid "Wanderer"
+msgstr "Заблудший странник"
+
+#: ../src/npc_generator/npc_generator.py:37 ../src/dict/npc.py:24
 msgid "Human"
 msgstr "Человек"
 
-#: ../src/npc_generator/npc_generator.py:62
+#: ../src/npc_generator/npc_generator.py:69
 msgid "Victim"
 msgstr "Жертва"
 
-#: ../src/npc_generator/npc_generator.py:62
 #: ../src/npc_generator/npc_generator.py:69
+#: ../src/npc_generator/npc_generator.py:76
 msgid "Killer"
 msgstr "Убийца"
 
-#: ../src/npc_generator/npc_generator.py:82
-#, fuzzy
+#: ../src/npc_generator/npc_generator.py:89
 msgid "Accomplice"
-msgstr "Алиса"
+msgstr "Сообщник"
 
-#: ../src/npc_generator/npc_generator.py:84
+#: ../src/npc_generator/npc_generator.py:92
 msgid "Helper"
 msgstr "Помощник"
 
-#: ../src/npc_generator/npc_generator.py:86
+#: ../src/npc_generator/npc_generator.py:94
 msgid "Neutral"
 msgstr "Нейтральный"
 
@@ -136,10 +143,6 @@ msgstr "Священник"
 msgid "Farmer"
 msgstr "Фермерша"
 
-#: ../src/dict/npc.py:21
-msgid "Wanderer"
-msgstr "Заблудший странник"
-
 #: ../src/dict/npc.py:22
 msgid "Elder"
 msgstr "Староста"
@@ -159,10 +162,6 @@ msgstr "Гоблин"
 #: ../src/dict/npc.py:27
 msgid "Half-Orc"
 msgstr "Полуорк"
-
-#: ../src/dict/npc.py:28
-msgid "Vampire"
-msgstr "Вампир"
 
 #: ../src/dict/npc.py:32
 msgid "Cowardly"

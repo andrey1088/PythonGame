@@ -1,43 +1,51 @@
-#: ../src/npc_generator/npc_generator.py:21
-#: ../src/npc_generator/npc_generator.py:25 ../src/dict/npc.py:30
+#: ../src/npc_generator/npc_generator.py:24
+#: ../src/npc_generator/npc_generator.py:29 ../src/dict/npc.py:30
 msgid "Female"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:21 ../src/dict/npc.py:29
+#: ../src/npc_generator/npc_generator.py:24 ../src/dict/npc.py:29
 msgid "Male"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:28 ../src/dict/npc.py:31
+#: ../src/npc_generator/npc_generator.py:32 ../src/dict/npc.py:31
 msgid "Lover"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:29
+#: ../src/npc_generator/npc_generator.py:33
 msgid "flirt"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:33 ../src/dict/npc.py:24
+#: ../src/npc_generator/npc_generator.py:36 ../src/dict/npc.py:28
+msgid "Vampire"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:36 ../src/dict/npc.py:21
+msgid "Wanderer"
+msgstr ""
+
+#: ../src/npc_generator/npc_generator.py:37 ../src/dict/npc.py:24
 #, fuzzy
 msgid "Human"
 msgstr "Humah11"
 
-#: ../src/npc_generator/npc_generator.py:62
+#: ../src/npc_generator/npc_generator.py:69
 msgid "Victim"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:62
 #: ../src/npc_generator/npc_generator.py:69
+#: ../src/npc_generator/npc_generator.py:76
 msgid "Killer"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:82
+#: ../src/npc_generator/npc_generator.py:89
 msgid "Accomplice"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:84
+#: ../src/npc_generator/npc_generator.py:92
 msgid "Helper"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:86
+#: ../src/npc_generator/npc_generator.py:94
 msgid "Neutral"
 msgstr ""
 
@@ -117,10 +125,6 @@ msgstr ""
 msgid "Farmer"
 msgstr ""
 
-#: ../src/dict/npc.py:21
-msgid "Wanderer"
-msgstr ""
-
 #: ../src/dict/npc.py:22
 msgid "Elder"
 msgstr ""
@@ -139,10 +143,6 @@ msgstr ""
 
 #: ../src/dict/npc.py:27
 msgid "Half-Orc"
-msgstr ""
-
-#: ../src/dict/npc.py:28
-msgid "Vampire"
 msgstr ""
 
 #: ../src/dict/npc.py:32

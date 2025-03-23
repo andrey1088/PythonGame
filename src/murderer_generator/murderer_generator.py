@@ -1,10 +1,11 @@
 import random
 from abc import ABC, abstractmethod
 from pyclbr import Class
+from src.abstract_npc.abstract_npc import AbstractNpc
 from src.utils.utils import get_data
 
 class MurdererType(ABC):
-    def __init__(self, killer: Class):
+    def __init__(self, killer: AbstractNpc):
         self.killer = killer  # Убийца, связанный с этим типом
         self.clue = self.generate_clue() # Улики, связанные с убийством
         self.method = self.murder_method() # Метод убийства
@@ -53,7 +54,7 @@ class AccidentalKiller(MurdererType):
 
 
 # Function to randomly assign a murderer type
-def assign_murderer_type(npc: Class) -> Class:
+def assign_murderer_type(npc: AbstractNpc) -> Class:
     murderer_classes = [Ritualist, Possessed, Avenger, AccidentalKiller]
     return random.choice(murderer_classes)(npc.name)
 

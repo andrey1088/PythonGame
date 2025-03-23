@@ -1,7 +1,9 @@
 import random
 from src.translation.translation import _
 from src.murderer_generator.murderer_generator import assign_murderer_type
+from src.accomplice_generator.accomlice_generator import assign_accomplice_type
 from src.utils.utils import get_data
+from src.abstract_npc.abstract_npc import AbstractNpc
 
 available_male_names = get_data('male_names', 'npc')
 available_female_names = get_data('female_names', 'npc')
@@ -12,16 +14,18 @@ def assign_unique_name(available_names):
         available_names.remove(name)
     return _(name)
 
-class Person:
+class Person(AbstractNpc):
     used_names = set()  # To track assigned names
 
     def __init__(self, npc_id):
+        super().__init__()
         self.id = npc_id
         self.role = _(get_data('roles', 'npc')[npc_id])
         self.gender = _('Female') if get_data('roles', 'npc')[npc_id] in get_data('female_roles', 'npc') else _('Male')
         self.personalities = []
         self.pressure_response = [_(random.choice(get_data('pressure_response', 'npc')))]
-        self.murderer_type = None
+        self.murderer_info = None
+        self.accomplice_info = None
         if self.gender == _('Female'):
             self.name = assign_unique_name(available_female_names)
             self.personalities = []
@@ -35,8 +39,8 @@ class Person:
 
         self.alibi = 'Unknown'
         self.connections = {}
-        self.knows_about = []
         self.suspect = False
+        self.known_clues = []
 
     def set_relationships(self, relationships: dict) -> None:
         self.connections = relationships
@@ -49,7 +53,9 @@ class Person:
             'personalities': self.personalities,
             'pressure_response': self.pressure_response,
             'connections': self.connections,
-            'murderer_info': self.murderer_type
+            'murderer_info': self.murderer_info,
+            'accomplice_info': self.accomplice_info,
+            'known_clues': self.known_clues
         })
 
 # Generate NPCs
@@ -69,7 +75,7 @@ def assign_relationships() -> None:
         main_npcs[i].set_relationships({'role': main_roles[i]})
         if main_roles[i] == _('Killer'):
             murderer = main_npcs[i]
-            murderer.murderer_type = assign_murderer_type(murderer)
+            murderer.murderer_info = assign_murderer_type(murderer)
         else:
             victim = main_npcs[i]
 
@@ -81,6 +87,7 @@ def assign_relationships() -> None:
     # Set connections
     for accomplice in accomplices:
         accomplice.set_relationships({'role': _('Accomplice'), 'knows_about': [murderer.name]})
+        accomplice.accomplice_info = assign_accomplice_type(accomplice, murderer)
     for helper in helpers:
         helper.set_relationships({'role': _('Helper'), 'knows_about': [victim.name]})
     for neutral in neutral_npcs:
