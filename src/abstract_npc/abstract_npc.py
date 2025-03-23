@@ -7,6 +7,7 @@ class AbstractNpc:
         self.pressure_response = []
         self.murderer_info = None
         self.accomplice_info = None
+        self.helper_info = None
         self.name = ''
         self.personalities = []
         self.race = ''

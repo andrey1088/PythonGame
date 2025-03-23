@@ -2,6 +2,7 @@ import random
 from src.translation.translation import _
 from src.murderer_generator.murderer_generator import assign_murderer_type
 from src.accomplice_generator.accomlice_generator import assign_accomplice_type
+from src.helper_generator.helper_generator import assign_helper_type
 from src.utils.utils import get_data
 from src.abstract_npc.abstract_npc import AbstractNpc
 
@@ -88,8 +89,10 @@ def assign_relationships() -> None:
     for accomplice in accomplices:
         accomplice.set_relationships({'role': _('Accomplice'), 'knows_about': [murderer.name]})
         accomplice.accomplice_info = assign_accomplice_type(accomplice, murderer)
-    for helper in helpers:
+    for index, helper in enumerate(helpers):
         helper.set_relationships({'role': _('Helper'), 'knows_about': [victim.name]})
+        clue = murderer.murderer_info.clues[index]
+        helper.helper_info = assign_helper_type(helper, clue=clue)
     for neutral in neutral_npcs:
         neutral.set_relationships({'role': _('Neutral')})
 

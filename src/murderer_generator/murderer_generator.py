@@ -7,7 +7,7 @@ from src.utils.utils import get_data
 class MurdererType(ABC):
     def __init__(self, killer: AbstractNpc):
         self.killer = killer  # Убийца, связанный с этим типом
-        self.clue = self.generate_clue() # Улики, связанные с убийством
+        self.clues = self.generate_clue() # Улики, связанные с убийством
         self.method = self.murder_method() # Метод убийства
 
     @abstractmethod
@@ -23,7 +23,7 @@ class MurdererType(ABC):
 
 class Ritualist(MurdererType):
     def generate_clue(self):
-        return [get_data('Ritualist', 'clues')]
+        return get_data('Ritualist', 'clues')
 
     def murder_method(self):
         return "The victim was sacrificed in a dark ritual."
@@ -31,7 +31,7 @@ class Ritualist(MurdererType):
 
 class Possessed(MurdererType):
     def generate_clue(self):
-        return [get_data('Possessed', 'clues')]
+        return get_data('Possessed', 'clues')
 
     def murder_method(self):
         return "The murderer was possessed and had no control over their actions."
@@ -39,7 +39,7 @@ class Possessed(MurdererType):
 
 class Avenger(MurdererType):
     def generate_clue(self):
-        return [get_data('Avenger', 'clues')]
+        return get_data('Avenger', 'clues')
 
     def murder_method(self):
         return "The murderer acted out of revenge."
@@ -47,7 +47,7 @@ class Avenger(MurdererType):
 
 class AccidentalKiller(MurdererType):
     def generate_clue(self):
-        return [get_data('AccidentalKiller', 'clues')]
+        return get_data('AccidentalKiller', 'clues')
 
     def murder_method(self):
         return "The murder happened unintentionally during a conflict."

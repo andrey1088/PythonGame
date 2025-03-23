@@ -1,8 +1,6 @@
-import random
 from src.abstract_npc.abstract_npc import AbstractNpc
-from pyclbr import Class
 
-class Accomplice(AbstractNpc):
+class Accomplice:
     def __init__(self, npc):
         super().__init__()
         self.name = 'Accomplice'
@@ -20,7 +18,7 @@ class Accomplice(AbstractNpc):
 # Function to randomly assign a murderer type
 def assign_accomplice_type(npc: AbstractNpc, killer: AbstractNpc) -> Accomplice:
     accomplice = Accomplice(npc)
-    accomplice.assign_clues(killer.murderer_info.clue)
+    accomplice.assign_clues(killer.murderer_info.clues)
     accomplice.assign_killer_info(killer)
 
     return accomplice
