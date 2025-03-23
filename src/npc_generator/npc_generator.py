@@ -46,6 +46,26 @@ class Person(AbstractNpc):
     def set_relationships(self, relationships: dict) -> None:
         self.connections = relationships
 
+    def get_clues(self, pressure_method):
+        """Определяет, какие улики NPC готов раскрыть в зависимости от метода давления."""
+
+        if 'Strong-willed' in self.personalities and pressure_method in ['Threats', 'Blackmail']:
+            return "Я не поддамся давлению!"
+        elif 'Cowardly' in self.personalities and pressure_method in ['Threats', 'Blackmail']:
+            return f'Ладно, ладно! Я скажу... {random.choice(self.known_clues)}'
+        elif 'Greedy' in self.personalities and pressure_method == 'Bribery':
+            return f'Может, это освежит мою память... {random.choice(self.known_clues)}'
+        elif 'Cunning' in self.personalities and pressure_method == 'Blackmail':
+            return f'Ты хорошо подготовился... Ладно, вот что я знаю: {random.choice(self.known_clues)}'
+        elif 'Straightforward' in self.personalities and pressure_method == 'Persuasion':
+            return f"'Я скажу всё как есть: {', '.join(self.known_clues)}'"
+        elif 'Silent' in self.personalities:
+            return 'NPC молчит и отказывается говорить.'
+        elif 'Possessed' in self.personalities:
+            return 'NPC ведёт себя странно и бормочет что-то бессвязное...'
+        else:
+            return 'Я ничего не знаю...'
+
     def __repr__(self):
         return str({
             'name': self.name,
@@ -100,6 +120,3 @@ def assign_relationships() -> None:
         neutral.set_relationships({'role': _('Neutral')})
 
 assign_relationships()
-
-for item in npc_list:
-    print(item)
