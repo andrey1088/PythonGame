@@ -80,6 +80,9 @@ def assign_relationships() -> None:
         else:
             victim = main_npcs[i]
 
+    for npc in npc_list:
+        npc.known_clues = murderer.murderer_info.clues['PublicClues']
+
     # Assign 2 accomplices, 3 helpers, and 2 neutrals
     accomplices = random.sample([npc for npc in npc_list if npc not in main_npcs], 2)
     helpers = random.sample([npc for npc in npc_list if npc not in accomplices and npc not in main_npcs], 3)
@@ -91,7 +94,7 @@ def assign_relationships() -> None:
         accomplice.accomplice_info = assign_accomplice_type(accomplice, murderer)
     for index, helper in enumerate(helpers):
         helper.set_relationships({'role': _('Helper'), 'knows_about': [victim.name]})
-        clue = murderer.murderer_info.clues[index]
+        clue = murderer.murderer_info.clues['SecretClues'][index]
         helper.helper_info = assign_helper_type(helper, clue=clue)
     for neutral in neutral_npcs:
         neutral.set_relationships({'role': _('Neutral')})

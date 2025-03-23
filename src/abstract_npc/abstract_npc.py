@@ -13,6 +13,5 @@ class AbstractNpc:
         self.race = ''
         self.alibi = ''
         self.connections = {}
-        self.knows_about = []
         self.suspect = False
         self.known_clues = []
