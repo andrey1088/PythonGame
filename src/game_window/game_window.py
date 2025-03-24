@@ -6,6 +6,7 @@ from PyQt6.QtCore import Qt
 from src.translation.translation import _
 from src.npc_generator.npc_generator import get_person
 from src.abstract_npc.abstract_npc import AbstractNpc
+from src.chat_system.chat_window import ChatWindow
 
 from PyQt6 import uic
 
@@ -239,17 +240,17 @@ class GameWindow(QMainWindow):
             avatar_button = create_button(person.name, f'{media_dir}avatars/{person.avatar}', 18)
             avatar_button.setMaximumWidth(200)
             layout_wrapper.addWidget(avatar_button)
-            # avatar_button.clicked.connect(self.start_chat(person))
+            avatar_button.clicked.connect(self.start_chat(person))
 
         central_widget.setLayout(layout_wrapper)
         central_widget.setContentsMargins(20, 20, 20, 20)
 
     def start_chat(self, npc: AbstractNpc):
-        pass
-        # chat_with_npc(npc)
+        self.chat_window = ChatWindow(npc.name)
+        self.chat_window.exec()
 
-def chat_with_npc(npc: AbstractNpc):
-    pass
+    def chat_with_npc(npc: AbstractNpc):
+        pass
     # print(f"Вы разговариваете с {npc.name} ({npc.role})")
 
     # while True:
