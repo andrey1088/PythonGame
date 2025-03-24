@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-23 08:09+0200\n"
+"POT-Creation-Date: 2025-03-24 17:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,53 +17,53 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/npc_generator/npc_generator.py:24
-#: ../src/npc_generator/npc_generator.py:29 ../src/dict/npc.py:30
+#: ../src/npc_generator/npc_generator.py:25
+#: ../src/npc_generator/npc_generator.py:30 ../src/dict/npc.py:30
 msgid "Female"
 msgstr "Женщина"
 
-#: ../src/npc_generator/npc_generator.py:24 ../src/dict/npc.py:29
+#: ../src/npc_generator/npc_generator.py:25 ../src/dict/npc.py:29
 msgid "Male"
 msgstr "Мужчина"
 
-#: ../src/npc_generator/npc_generator.py:32 ../src/dict/npc.py:31
+#: ../src/npc_generator/npc_generator.py:33 ../src/dict/npc.py:31
 msgid "Lover"
 msgstr "Любовница"
 
-#: ../src/npc_generator/npc_generator.py:33
+#: ../src/npc_generator/npc_generator.py:34
 msgid "flirt"
 msgstr "Флирт"
 
-#: ../src/npc_generator/npc_generator.py:36 ../src/dict/npc.py:28
+#: ../src/npc_generator/npc_generator.py:37 ../src/dict/npc.py:28
 msgid "Vampire"
 msgstr "Вампир"
 
-#: ../src/npc_generator/npc_generator.py:36 ../src/dict/npc.py:21
+#: ../src/npc_generator/npc_generator.py:37 ../src/dict/npc.py:21
 msgid "Wanderer"
 msgstr "Заблудший странник"
 
-#: ../src/npc_generator/npc_generator.py:37 ../src/dict/npc.py:24
+#: ../src/npc_generator/npc_generator.py:38 ../src/dict/npc.py:24
 msgid "Human"
 msgstr "Человек"
 
-#: ../src/npc_generator/npc_generator.py:69
+#: ../src/npc_generator/npc_generator.py:90
 msgid "Victim"
 msgstr "Жертва"
 
-#: ../src/npc_generator/npc_generator.py:69
-#: ../src/npc_generator/npc_generator.py:76
+#: ../src/npc_generator/npc_generator.py:90
+#: ../src/npc_generator/npc_generator.py:97
 msgid "Killer"
 msgstr "Убийца"
 
-#: ../src/npc_generator/npc_generator.py:89
+#: ../src/npc_generator/npc_generator.py:113
 msgid "Accomplice"
 msgstr "Сообщник"
 
-#: ../src/npc_generator/npc_generator.py:92
+#: ../src/npc_generator/npc_generator.py:116
 msgid "Helper"
 msgstr "Помощник"
 
-#: ../src/npc_generator/npc_generator.py:94
+#: ../src/npc_generator/npc_generator.py:120
 msgid "Neutral"
 msgstr "Нейтральный"
 
@@ -74,6 +74,18 @@ msgstr ""
 #: ../src/utils/utils.py:14
 msgid "Error decoding JSON data."
 msgstr ""
+
+#: ../src/game_window/game_window.py:138
+msgid "Map"
+msgstr "Карта"
+
+#: ../src/game_window/game_window.py:155
+msgid "Main page"
+msgstr "На главную"
+
+#: ../src/game_window/game_window.py:171
+msgid "New game"
+msgstr "Новая игра"
 
 #: ../src/dict/npc.py:4
 msgid "Gregor"
@@ -206,6 +218,46 @@ msgstr "Взяточничество"
 #: ../src/dict/npc.py:42
 msgid "Blackmail"
 msgstr "Шантажировать"
+
+#: ../src/dict/npc.py:43
+msgid "tavern"
+msgstr "Таверна"
+
+#: ../src/dict/npc.py:44
+msgid "forge"
+msgstr "Кузница"
+
+#: ../src/dict/npc.py:45
+msgid "chapel"
+msgstr "Часовня"
+
+#: ../src/dict/npc.py:46
+msgid "market"
+msgstr "Рынок"
+
+#: ../src/dict/npc.py:47
+msgid "outskirts"
+msgstr "Лес"
+
+#: ../src/dict/npc.py:48
+msgid "abandoned_house"
+msgstr "Заброшенный дом"
+
+#: ../src/dict/npc.py:49
+msgid "healers_place"
+msgstr "Дом целительницы"
+
+#: ../src/dict/npc.py:50
+msgid "hunters_place"
+msgstr "Дом охотника"
+
+#: ../src/dict/npc.py:51
+msgid "library"
+msgstr "Библиотека"
+
+#: ../src/dict/npc.py:52
+msgid "torture"
+msgstr "Пыточная"
 
 #, fuzzy
 #~ msgid "Lover2222"

@@ -39,5 +39,15 @@ translations = [
         _("Persuasion"),
         _("Threats"),
         _("Bribery"),
-        _("Blackmail")
+        _("Blackmail"),
+        _('tavern'),
+        _('forge'),
+        _('chapel'),
+        _('market'),
+        _('outskirts'),
+        _('abandoned_house'),
+        _('healers_place'),
+        _('hunters_place'),
+        _('library'),
+        _('torture')
     ]
