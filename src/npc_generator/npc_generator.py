@@ -22,6 +22,7 @@ class Person(AbstractNpc):
         super().__init__()
         self.id = npc_id
         self.role = _(get_data('roles', 'npc')[npc_id])
+        self.avatar = f"{get_data('roles', 'npc')[npc_id]}.png"
         self.gender = _('Female') if get_data('roles', 'npc')[npc_id] in get_data('female_roles', 'npc') else _('Male')
         self.personalities = []
         self.pressure_response = [_(random.choice(get_data('pressure_response', 'npc')))]
@@ -120,3 +121,10 @@ def assign_relationships() -> None:
         neutral.set_relationships({'role': _('Neutral')})
 
 assign_relationships()
+
+def get_person(role: str) -> Person or None:
+    for npc in npc_list:
+        if npc.role == role:
+            return npc
+
+    return None
