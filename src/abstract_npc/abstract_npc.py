@@ -23,6 +23,7 @@ class AbstractNpc:
         self.connections = {}
         self.suspect = False
         self.known_clues = []
+        self.relationship_with_inquisitor = 0
 
     def get_response(self, player_message):
         """Генерация ответа NPC через ChatGPT"""

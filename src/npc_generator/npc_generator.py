@@ -67,6 +67,10 @@ class Person(AbstractNpc):
         else:
             return 'Я ничего не знаю...'
 
+    def update_relationship(self, change):
+        """Изменяет отношение NPC к инквизитору."""
+        self.relationship_with_inquisitor += change
+
     def __repr__(self):
         return str({
             'name': self.name,
@@ -111,14 +115,31 @@ def assign_relationships() -> None:
 
     # Set connections
     for accomplice in accomplices:
-        accomplice.set_relationships({'role': _('Accomplice'), 'knows_about': [murderer.name]})
+        accomplice.set_relationships(
+            {
+                'role': _('Accomplice'),
+                'knows_about': [murderer.name],
+                'victim_name': victim.name,
+                'victim_role': victim.role
+            })
         accomplice.accomplice_info = assign_accomplice_type(accomplice, murderer)
     for index, helper in enumerate(helpers):
-        helper.set_relationships({'role': _('Helper'), 'knows_about': [victim.name]})
+        helper.set_relationships(
+            {
+                'role': _('Helper'),
+                'knows_about': [victim.name],
+                'victim_name': victim.name,
+                'victim_role': victim.role
+            })
         clue = murderer.murderer_info.clues['SecretClues'][index]
         helper.helper_info = assign_helper_type(helper, clue=clue)
     for neutral in neutral_npcs:
-        neutral.set_relationships({'role': _('Neutral')})
+        neutral.set_relationships(
+            {
+                'role': _('Neutral'),
+                'victim_name': victim.name,
+                'victim_role': victim.role
+            })
 
 assign_relationships()
 
@@ -128,3 +149,7 @@ def get_person(role: str) -> Person or None:
             return npc
 
     return None
+
+def update_npc(npc, relationship_change):
+    """Обновляет данные NPC после диалога."""
+    npc.update_relationship(relationship_change)

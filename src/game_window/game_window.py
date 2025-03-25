@@ -1,14 +1,11 @@
 import sys
 import os
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout, QScrollArea, QStackedWidget
-from PyQt6.QtGui import QPixmap, QPicture, QImage
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout
 from PyQt6.QtCore import Qt
 from src.translation.translation import _
 from src.npc_generator.npc_generator import get_person
 from src.abstract_npc.abstract_npc import AbstractNpc
 from src.chat_system.chat_window import ChatWindow
-
-from PyQt6 import uic
 
 media_dir = os.path.join(os.path.dirname(__file__), "../media/")
 
@@ -57,6 +54,7 @@ class GameWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.chat_window = None
         self.centralWidget = None
         self.setWindowTitle("Inquisition Game")
         self.setGeometry(100, 100, 1024, 800)  # Устанавливаем квадратное окно
@@ -228,9 +226,6 @@ class GameWindow(QMainWindow):
         widget_inner.setStyleSheet(f"background: transparent;")
 
         right_column = self.create_right_column()
-        left_column = self.create_left_column()
-
-        layout_inner.addWidget(left_column)
         layout_inner.addWidget(right_column)
 
         layout_wrapper.addWidget(widget_inner)
@@ -240,28 +235,14 @@ class GameWindow(QMainWindow):
             avatar_button = create_button(person.name, f'{media_dir}avatars/{person.avatar}', 18)
             avatar_button.setMaximumWidth(200)
             layout_wrapper.addWidget(avatar_button)
-            avatar_button.clicked.connect(self.start_chat(person))
+            avatar_button.clicked.connect(lambda: self.start_chat(person))
 
         central_widget.setLayout(layout_wrapper)
         central_widget.setContentsMargins(20, 20, 20, 20)
 
     def start_chat(self, npc: AbstractNpc):
-        self.chat_window = ChatWindow(npc.name)
+        self.chat_window = ChatWindow(npc)
         self.chat_window.exec()
-
-    def chat_with_npc(npc: AbstractNpc):
-        pass
-    # print(f"Вы разговариваете с {npc.name} ({npc.role})")
-
-    # while True:
-    #     player_message = input("\nВы: ")
-    #
-    #     if player_message.lower() in ["выход", "exit", "прощай"]:
-    #         print(f"{npc.name}: Да пребудет с тобой удача, странник...")
-    #         break
-    #
-    #     npc_response = npc.get_response(player_message)
-    #     print(f"\n{npc.name}: {npc_response}")
 
 
 def start_game():
