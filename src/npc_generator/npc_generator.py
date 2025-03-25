@@ -18,31 +18,34 @@ def assign_unique_name(available_names):
 class Person(AbstractNpc):
     used_names = set()  # To track assigned names
 
-    def __init__(self, npc_id):
+    def __init__(self, npc_id, is_new=True):
         super().__init__()
         self.id = npc_id
-        self.role = _(get_data('roles', 'npc')[npc_id])
-        self.avatar = f"{get_data('roles', 'npc')[npc_id]}.png"
-        self.gender = _('Female') if get_data('roles', 'npc')[npc_id] in get_data('female_roles', 'npc') else _('Male')
-        self.personalities = []
-        self.pressure_response = [_(random.choice(get_data('pressure_response', 'npc')))]
-        self.murderer_info = None
-        self.accomplice_info = None
-        if self.gender == _('Female'):
-            self.name = assign_unique_name(available_female_names)
-            self.personalities = []
-            self.personalities.append(_('Lover'))
-            self.pressure_response.append(_('flirt'))
-        else:
-            self.name = assign_unique_name(available_male_names)
-        race = _('Vampire') if self.role == _('Wanderer') else random.choice(get_data('races', 'npc'))
-        self.race = _(race) if get_data('roles', 'npc')[npc_id] in get_data('non_humans', 'npc') else _('Human')
-        self.personalities.append(_(random.choice(get_data('personalities', 'npc'))))
 
-        self.alibi = 'Unknown'
-        self.connections = {}
-        self.suspect = False
-        self.known_clues = []
+        if is_new:
+            self.role = _(get_data('roles', 'npc')[npc_id])
+            self.avatar = f"{get_data('roles', 'npc')[npc_id]}.png"
+            self.gender = _('Female') if get_data('roles', 'npc')[npc_id] in get_data('female_roles', 'npc') else _(
+                'Male')
+            self.personalities = []
+            self.pressure_response = [_(random.choice(get_data('pressure_response', 'npc')))]
+            self.murderer_info = None
+            self.accomplice_info = None
+            if self.gender == _('Female'):
+                self.name = assign_unique_name(available_female_names)
+                self.personalities = []
+                self.personalities.append(_('Lover'))
+                self.pressure_response.append(_('flirt'))
+            else:
+                self.name = assign_unique_name(available_male_names)
+            race = _('Vampire') if self.role == _('Wanderer') else random.choice(get_data('races', 'npc'))
+            self.race = _(race) if get_data('roles', 'npc')[npc_id] in get_data('non_humans', 'npc') else _('Human')
+            self.personalities.append(_(random.choice(get_data('personalities', 'npc'))))
+
+            self.alibi = 'Unknown'
+            self.connections = {}
+            self.suspect = False
+            self.known_clues = []
 
     def set_relationships(self, relationships: dict) -> None:
         self.connections = relationships
@@ -84,8 +87,12 @@ class Person(AbstractNpc):
             'known_clues': self.known_clues
         })
 
-# Generate NPCs
-npc_list = [Person(i) for i in range(len(get_data('roles', 'npc')))]
+npc_list = []
+
+def generate_npc() -> None:
+    global npc_list
+    npc_list = [Person(i) for i in range(len(get_data('roles', 'npc')))]
+    assign_relationships()
 
 # Assign relationships
 def assign_relationships() -> None:
@@ -140,8 +147,6 @@ def assign_relationships() -> None:
                 'victim_name': victim.name,
                 'victim_role': victim.role
             })
-
-assign_relationships()
 
 def get_person(role: str) -> Person or None:
     for npc in npc_list:

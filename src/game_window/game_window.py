@@ -165,6 +165,8 @@ class GameWindow(QMainWindow):
 
     def start_new_game(self):
         npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
+        generate_npc = getattr(npc_generator, 'generate_npc')
+        generate_npc()
         self.get_person = getattr(npc_generator, 'get_person')
         self.create_inquisitor_home()
 
