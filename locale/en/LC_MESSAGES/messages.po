@@ -1,51 +1,51 @@
-#: ../src/npc_generator/npc_generator.py:25
-#: ../src/npc_generator/npc_generator.py:30 ../src/dict/npc.py:30
+#: ../src/npc_generator/npc_generator.py:26
+#: ../src/npc_generator/npc_generator.py:31 ../src/dict/npc.py:30
 msgid "Female"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:25 ../src/dict/npc.py:29
+#: ../src/npc_generator/npc_generator.py:26 ../src/dict/npc.py:29
 msgid "Male"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:33 ../src/dict/npc.py:31
+#: ../src/npc_generator/npc_generator.py:34 ../src/dict/npc.py:31
 msgid "Lover"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:34
+#: ../src/npc_generator/npc_generator.py:35
 msgid "flirt"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:37 ../src/dict/npc.py:28
+#: ../src/npc_generator/npc_generator.py:38 ../src/dict/npc.py:28
 msgid "Vampire"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:37 ../src/dict/npc.py:21
+#: ../src/npc_generator/npc_generator.py:38 ../src/dict/npc.py:21
 msgid "Wanderer"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:38 ../src/dict/npc.py:24
+#: ../src/npc_generator/npc_generator.py:39 ../src/dict/npc.py:24
 #, fuzzy
 msgid "Human"
 msgstr "Humah11"
 
-#: ../src/npc_generator/npc_generator.py:90
+#: ../src/npc_generator/npc_generator.py:95
 msgid "Victim"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:90
-#: ../src/npc_generator/npc_generator.py:97
+#: ../src/npc_generator/npc_generator.py:95
+#: ../src/npc_generator/npc_generator.py:102
 msgid "Killer"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:113
+#: ../src/npc_generator/npc_generator.py:120
 msgid "Accomplice"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:116
+#: ../src/npc_generator/npc_generator.py:129
 msgid "Helper"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:120
+#: ../src/npc_generator/npc_generator.py:139
 msgid "Neutral"
 msgstr ""
 
@@ -57,16 +57,28 @@ msgstr ""
 msgid "Error decoding JSON data."
 msgstr ""
 
-#: ../src/game_window/game_window.py:138
+#: ../src/game_window/game_window.py:53
+msgid "To home"
+msgstr ""
+
+#: ../src/game_window/game_window.py:114
 msgid "Map"
 msgstr ""
 
-#: ../src/game_window/game_window.py:155
-msgid "Main page"
+#: ../src/game_window/game_window.py:124
+msgid "Account"
 msgstr ""
 
-#: ../src/game_window/game_window.py:171
+#: ../src/game_window/game_window.py:150
 msgid "New game"
+msgstr ""
+
+#: ../src/game_window/game_window.py:151
+msgid "Continue"
+msgstr ""
+
+#: ../src/game_window/game_window.py:152
+msgid "Exit"
 msgstr ""
 
 #: ../src/dict/npc.py:4

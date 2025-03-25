@@ -1,59 +1,21 @@
 import sys
 import os
+import importlib
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout
 from PyQt6.QtCore import Qt
 from src.translation.translation import _
-from src.npc_generator.npc_generator import get_person
+
 from src.abstract_npc.abstract_npc import AbstractNpc
 from src.chat_system.chat_window import ChatWindow
+from src.utils.window import create_menu_button, create_button
 
 media_dir = os.path.join(os.path.dirname(__file__), "../media/")
-
-
-def create_menu_button(title):
-    map_button = QPushButton(title)
-    map_button.setStyleSheet("""  
-        QPushButton {
-            background: rgba(0, 172, 252, 50);
-            font-size: 14px;
-            border: none;
-            border-radius: 10px;
-            padding: 20px;
-            color: #fff;
-        }
-        QPushButton:hover {
-            background: rgba(0, 172, 252, 50);
-        }
-      """)
-
-    return map_button
-
-def create_button(title, image_path, font_size=1):
-    button = QPushButton(title)
-    button.setStyleSheet(f"""  
-        QPushButton {{
-            background-image: url({image_path});
-            background-repeat: no-repeat;
-            background-position: center;
-            font-size: {font_size}px;
-            font-weight: bold;
-            border: none;
-            border-radius: 20px;
-            padding: 140px 10px 20px;
-            color: #fff;
-        }}
-        QPushButton:hover {{
-            opacity: 0.5;
-        }}
-      """)
-
-    return button
-
 
 class GameWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.get_person = None
         self.chat_window = None
         self.centralWidget = None
         self.setWindowTitle("Inquisition Game")
@@ -74,10 +36,24 @@ class GameWindow(QMainWindow):
         layout_wrapper = QHBoxLayout()
         layout_wrapper.setSpacing(0)
 
-        right_column = self.create_right_column()
         menu_widget = self.create_main_menu()
 
         layout_wrapper.addWidget(menu_widget)
+        central_widget.setLayout(layout_wrapper)
+        central_widget.setContentsMargins(20, 20, 20, 20)
+
+    def create_inquisitor_home(self):
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        central_widget.setStyleSheet(f"background-image: url('{media_dir}places/inquisitor_home.png');")
+
+        layout_wrapper = QHBoxLayout()
+        layout_wrapper.setSpacing(0)
+
+        right_column = self.create_right_column()
+        left_column = self.create_left_column(title=_('To home'), button_link='to_start' )
+
+        layout_wrapper.addWidget(left_column)
         layout_wrapper.addWidget(right_column)
         central_widget.setLayout(layout_wrapper)
         central_widget.setContentsMargins(20, 20, 20, 20)
@@ -146,15 +122,19 @@ class GameWindow(QMainWindow):
 
         return right_column
 
-    def create_left_column(self):
+    def create_left_column(self, title=_('Account'), button_link='to_account'):
         left_column = QWidget()
         layout = QVBoxLayout()
         left_column.setStyleSheet("background: transparent;")
 
         layout.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
-        go_home_button = create_menu_button(title=_('Main page'))
-        go_home_button.clicked.connect(self.create_start_page)
+        go_home_button = create_menu_button(title=title)
+
+        if button_link == 'to_start':
+            go_home_button.clicked.connect(self.create_start_page)
+        else:
+            go_home_button.clicked.connect(self.create_inquisitor_home)
 
         layout.addWidget(go_home_button)
         left_column.setLayout(layout)
@@ -168,19 +148,25 @@ class GameWindow(QMainWindow):
           """)
 
         layout_menu = QVBoxLayout()
-        menu_widget.setMaximumWidth(300)
-        button_1 = create_menu_button(_('New game'))
-        button_2 = create_menu_button('Продолжить')
-        button_3 = create_menu_button('Выход')
+        new_game_button = create_menu_button(_('New game'))
+        continue_button = create_menu_button(_('Continue'))
+        exit_button = create_menu_button(_('Exit'))
 
         layout_menu.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
-        layout_menu.addWidget(button_1)
-        layout_menu.addWidget(button_2)
-        layout_menu.addWidget(button_3)
+        new_game_button.clicked.connect(self.start_new_game)
+
+        layout_menu.addWidget(new_game_button)
+        layout_menu.addWidget(continue_button)
+        layout_menu.addWidget(exit_button)
         menu_widget.setLayout(layout_menu)
 
         return menu_widget
+
+    def start_new_game(self):
+        npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
+        self.get_person = getattr(npc_generator, 'get_person')
+        self.create_inquisitor_home()
 
     def show_tavern(self):
         self.change_location(f'{media_dir}places/tavern.png', 'Innkeeper')
@@ -231,7 +217,7 @@ class GameWindow(QMainWindow):
         layout_wrapper.addWidget(widget_inner)
 
         if npc is not None:
-            person = get_person(_(npc))
+            person = self.get_person(_(npc))
             avatar_button = create_button(person.name, f'{media_dir}avatars/{person.avatar}', 18)
             avatar_button.setMaximumWidth(200)
             layout_wrapper.addWidget(avatar_button)
@@ -246,12 +232,6 @@ class GameWindow(QMainWindow):
 
 
 def start_game():
-    app = QApplication(sys.argv)
-    window = GameWindow()
-    window.show()
-    sys.exit(app.exec())
-
-if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = GameWindow()
     window.show()

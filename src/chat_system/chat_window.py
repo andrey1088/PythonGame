@@ -1,13 +1,12 @@
 import openai
 from openai import OpenAI
 import os
+import importlib
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLineEdit, QPushButton, QHBoxLayout
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtCore import QUrl
 
 from src.abstract_npc.abstract_npc import AbstractNpc
-from src.npc_generator.npc_generator import update_npc
-from src.inquisitor.inquisitor import inquisitor
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -96,11 +95,12 @@ class ChatWindow(QDialog):
 
     def end_chat(self):
         """Закрытие чата с обновлением данных NPC."""
-        relationship_change = calculate_relationship_change(True)
-        update_npc(self.npc, relationship_change)
         self.close()
 
     def closeEvent(self, event):
         """Вызывается при закрытии окна чата (например, крестиком)."""
-        self.end_chat()
+        npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
+        update_npc = getattr(npc_generator, 'update_npc')
+        relationship_change = calculate_relationship_change(True)
+        update_npc(self.npc, relationship_change)
         event.accept()
