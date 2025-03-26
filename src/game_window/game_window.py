@@ -25,6 +25,7 @@ class GameWindow(QMainWindow):
         self.setGeometry(100, 100, 1024, 800)  # Устанавливаем квадратное окно
         self.setMinimumSize(1024, 800)  # Минимальный размер
         self.setMaximumSize(1024, 800)  # Максимальный размер
+        self.is_game_started = False
 
         self.init_ui()
 
@@ -133,7 +134,7 @@ class GameWindow(QMainWindow):
         layout.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
         go_home_button = create_menu_button(title=title)
-        save_game_button = create_menu_button(title=_('Save game'))
+        save_game_button = create_menu_button(title=_('Save game'), is_disabled=not self.is_game_started)
 
         if button_link == 'to_start':
             go_home_button.clicked.connect(self.create_start_page)
@@ -157,7 +158,7 @@ class GameWindow(QMainWindow):
         layout_menu = QVBoxLayout()
         new_game_button = create_menu_button(_('New game'))
         continue_button = create_menu_button(_('Load game'))
-        save_game_button = create_menu_button(_('Save game'))
+        save_game_button = create_menu_button(title=_('Save game'), is_disabled=not self.is_game_started)
         exit_button = create_menu_button(_('Exit'))
 
         layout_menu.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
@@ -182,6 +183,7 @@ class GameWindow(QMainWindow):
             generate_npc = getattr(npc_generator, 'generate_npc')
             generate_npc()
             self.get_person = getattr(npc_generator, 'get_person')
+            self.is_game_started = True
             self.create_inquisitor_home()
         else:
             print("Cancel!")
@@ -199,12 +201,13 @@ class GameWindow(QMainWindow):
             print("Cancel!")
 
     def save_game(self):
-        dlg = SaveGameDialog(self)
-        if dlg.exec():
-            test_game_data = {'test date': 'some data'}
-            save_game(test_game_data)
-        else:
-            print("Cancel!")
+        if self.is_game_started:
+            dlg = SaveGameDialog(self)
+            if dlg.exec():
+                test_game_data = {'test date': 'some data'}
+                save_game(test_game_data)
+            else:
+                print("Cancel!")
 
     def show_tavern(self):
         self.change_location(f'{media_dir}places/tavern.png', 'Innkeeper')
