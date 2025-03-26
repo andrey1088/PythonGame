@@ -18,7 +18,7 @@ class GameWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.get_person = None
+        self.get_npc = None
         self.chat_window = None
         self.centralWidget = None
         self.setWindowTitle("Inquisition Game")
@@ -182,7 +182,7 @@ class GameWindow(QMainWindow):
             npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
             generate_npc = getattr(npc_generator, 'generate_npc')
             generate_npc()
-            self.get_person = getattr(npc_generator, 'get_person')
+            self.get_npc = getattr(npc_generator, 'get_npc')
             self.is_game_started = True
             self.create_inquisitor_home()
         else:
@@ -258,7 +258,7 @@ class GameWindow(QMainWindow):
         layout_wrapper.addWidget(widget_inner)
 
         if npc is not None:
-            person = self.get_person(_(npc))
+            person = self.get_npc(_(npc))
             avatar_button = create_button(person.name, f'{media_dir}avatars/{person.avatar}', 18)
             avatar_button.setMaximumWidth(200)
             layout_wrapper.addWidget(avatar_button)

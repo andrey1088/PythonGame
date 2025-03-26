@@ -148,7 +148,7 @@ def assign_relationships() -> None:
                 'victim_role': victim.role
             })
 
-def get_person(role: str) -> Person or None:
+def get_npc(role: str) -> Person or None:
     for npc in npc_list:
         if npc.role == role:
             return npc
