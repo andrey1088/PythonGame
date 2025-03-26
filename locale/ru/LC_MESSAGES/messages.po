@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-26 11:54+0200\n"
+"POT-Creation-Date: 2025-03-26 17:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,24 +46,24 @@ msgstr "Заблудший странник"
 msgid "Human"
 msgstr "Человек"
 
-#: ../src/npc_generator/npc_generator.py:102
+#: ../src/npc_generator/npc_generator.py:105
 msgid "Victim"
 msgstr "Жертва"
 
-#: ../src/npc_generator/npc_generator.py:102
-#: ../src/npc_generator/npc_generator.py:109
+#: ../src/npc_generator/npc_generator.py:105
+#: ../src/npc_generator/npc_generator.py:112
 msgid "Killer"
 msgstr "Убийца"
 
-#: ../src/npc_generator/npc_generator.py:127
+#: ../src/npc_generator/npc_generator.py:130
 msgid "Accomplice"
 msgstr "Сообщник"
 
-#: ../src/npc_generator/npc_generator.py:136
+#: ../src/npc_generator/npc_generator.py:139
 msgid "Helper"
 msgstr "Помощник"
 
-#: ../src/npc_generator/npc_generator.py:146
+#: ../src/npc_generator/npc_generator.py:149
 msgid "Neutral"
 msgstr "Нейтральный"
 
@@ -75,31 +75,32 @@ msgstr ""
 msgid "Error decoding JSON data."
 msgstr ""
 
-#: ../src/game_window/game_window.py:57
+#: ../src/game_window/game_window.py:58
 msgid "To home"
 msgstr "На главную"
 
-#: ../src/game_window/game_window.py:118
+#: ../src/game_window/game_window.py:119
 msgid "Map"
 msgstr "Карта"
 
-#: ../src/game_window/game_window.py:128
+#: ../src/game_window/game_window.py:129
 msgid "Account"
 msgstr "Кабинет"
 
-#: ../src/game_window/game_window.py:136 ../src/game_window/game_window.py:160
+#: ../src/game_window/game_window.py:137 ../src/game_window/game_window.py:161
+#: ../src/game_window/game_dialog.py:48
 msgid "Save game"
 msgstr "Сохранить"
 
-#: ../src/game_window/game_window.py:158
+#: ../src/game_window/game_window.py:159
 msgid "New game"
 msgstr "Новая игра"
 
-#: ../src/game_window/game_window.py:159
+#: ../src/game_window/game_window.py:160
 msgid "Load game"
 msgstr "Загрузить"
 
-#: ../src/game_window/game_window.py:161
+#: ../src/game_window/game_window.py:162
 msgid "Exit"
 msgstr "Выход"
 
@@ -111,9 +112,9 @@ msgstr "Вы хотите создать новую игру?"
 msgid "Do you want to load game?"
 msgstr "Вы хотите загрузить игру?"
 
-#: ../src/game_window/game_dialog.py:59
-msgid "Do you to save this game?"
-msgstr "Вы хотите сохранить игру?"
+#: ../src/game_window/game_dialog.py:60
+msgid "Please enter name of save"
+msgstr "Введите название сохранения"
 
 #: ../src/dict/npc.py:4
 msgid "Gregor"
@@ -286,6 +287,9 @@ msgstr "Библиотека"
 #: ../src/dict/npc.py:52
 msgid "torture"
 msgstr "Пыточная"
+
+#~ msgid "Do you want to save this game?"
+#~ msgstr "Вы хотите сохранить игру?"
 
 #~ msgid "Continue"
 #~ msgstr "Продолжить"

@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QDialogButtonBox, QDialog, QVBoxLayout, QLabel
+from PyQt6.QtWidgets import QDialogButtonBox, QDialog, QVBoxLayout, QLabel, QLineEdit
 from src.translation.translation import _
 
 class NewGameDialog(QDialog):
@@ -45,7 +45,8 @@ class SaveGameDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setWindowTitle("HELLO!")
+        self.new_save_name = ''
+        self.setWindowTitle(_('Save game'))
 
         QBtn = (
             QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
@@ -56,7 +57,17 @@ class SaveGameDialog(QDialog):
         self.buttonBox.rejected.connect(self.reject)
 
         layout = QVBoxLayout()
-        message = QLabel(_('Do you to save this game?'))
+        line_edit = QLineEdit()
+        line_edit.textEdited.connect(self.text_edited)
+        message = QLabel(_('Please enter name of save'))
         layout.addWidget(message)
+        layout.addWidget(line_edit)
         layout.addWidget(self.buttonBox)
         self.setLayout(layout)
+
+    def text_edited(self, s):
+        self.new_save_name = s
+
+    def accept(self):
+        if self.new_save_name:
+            super().accept()

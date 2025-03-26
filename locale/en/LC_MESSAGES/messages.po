@@ -28,24 +28,24 @@ msgstr ""
 msgid "Human"
 msgstr "Humah11"
 
-#: ../src/npc_generator/npc_generator.py:102
+#: ../src/npc_generator/npc_generator.py:105
 msgid "Victim"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:102
-#: ../src/npc_generator/npc_generator.py:109
+#: ../src/npc_generator/npc_generator.py:105
+#: ../src/npc_generator/npc_generator.py:112
 msgid "Killer"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:127
+#: ../src/npc_generator/npc_generator.py:130
 msgid "Accomplice"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:136
+#: ../src/npc_generator/npc_generator.py:139
 msgid "Helper"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:146
+#: ../src/npc_generator/npc_generator.py:149
 msgid "Neutral"
 msgstr ""
 
@@ -57,31 +57,32 @@ msgstr ""
 msgid "Error decoding JSON data."
 msgstr ""
 
-#: ../src/game_window/game_window.py:57
+#: ../src/game_window/game_window.py:58
 msgid "To home"
 msgstr ""
 
-#: ../src/game_window/game_window.py:118
+#: ../src/game_window/game_window.py:119
 msgid "Map"
 msgstr ""
 
-#: ../src/game_window/game_window.py:128
+#: ../src/game_window/game_window.py:129
 msgid "Account"
 msgstr ""
 
-#: ../src/game_window/game_window.py:136 ../src/game_window/game_window.py:160
+#: ../src/game_window/game_window.py:137 ../src/game_window/game_window.py:161
+#: ../src/game_window/game_dialog.py:48
 msgid "Save game"
 msgstr ""
 
-#: ../src/game_window/game_window.py:158
+#: ../src/game_window/game_window.py:159
 msgid "New game"
 msgstr ""
 
-#: ../src/game_window/game_window.py:159
+#: ../src/game_window/game_window.py:160
 msgid "Load game"
 msgstr ""
 
-#: ../src/game_window/game_window.py:161
+#: ../src/game_window/game_window.py:162
 msgid "Exit"
 msgstr ""
 
@@ -93,8 +94,8 @@ msgstr ""
 msgid "Do you want to load game?"
 msgstr ""
 
-#: ../src/game_window/game_dialog.py:59
-msgid "Do you to save this game?"
+#: ../src/game_window/game_dialog.py:60
+msgid "Please enter name of save"
 msgstr ""
 
 #: ../src/dict/npc.py:4
