@@ -29,8 +29,8 @@ class Person(AbstractNpc):
                 'Male')
             self.personalities = []
             self.pressure_response = [_(random.choice(get_data('pressure_response', 'npc')))]
-            self.murderer_info = None
-            self.accomplice_info = None
+            self.murderer_info = []
+            self.accomplice_info = []
             if self.gender == _('Female'):
                 self.name = assign_unique_name(available_female_names)
                 self.personalities = []
@@ -93,6 +93,9 @@ def generate_npc() -> None:
     global npc_list
     npc_list = [Person(i) for i in range(len(get_data('roles', 'npc')))]
     assign_relationships()
+
+def get_npc_list() -> npc_list:
+    return npc_list
 
 # Assign relationships
 def assign_relationships() -> None:

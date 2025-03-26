@@ -204,8 +204,7 @@ class GameWindow(QMainWindow):
         if self.is_game_started:
             dlg = SaveGameDialog(self)
             if dlg.exec():
-                test_game_data = {'test date': 'some data'}
-                save_game(test_game_data)
+                save_game()
             else:
                 print("Cancel!")
 
