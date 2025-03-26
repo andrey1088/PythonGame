@@ -12,7 +12,7 @@ def create_menu_button(title):
             color: #fff;
         }
         QPushButton:hover {
-            background: rgba(0, 172, 252, 50);
+            background: rgba(0, 172, 252, 20);
         }
       """)
 

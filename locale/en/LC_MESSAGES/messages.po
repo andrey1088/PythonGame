@@ -1,51 +1,51 @@
-#: ../src/npc_generator/npc_generator.py:26
-#: ../src/npc_generator/npc_generator.py:31 ../src/dict/npc.py:30
+#: ../src/npc_generator/npc_generator.py:28
+#: ../src/npc_generator/npc_generator.py:34 ../src/dict/npc.py:30
 msgid "Female"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:26 ../src/dict/npc.py:29
+#: ../src/npc_generator/npc_generator.py:29 ../src/dict/npc.py:29
 msgid "Male"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:34 ../src/dict/npc.py:31
+#: ../src/npc_generator/npc_generator.py:37 ../src/dict/npc.py:31
 msgid "Lover"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:35
+#: ../src/npc_generator/npc_generator.py:38
 msgid "flirt"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:38 ../src/dict/npc.py:28
+#: ../src/npc_generator/npc_generator.py:41 ../src/dict/npc.py:28
 msgid "Vampire"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:38 ../src/dict/npc.py:21
+#: ../src/npc_generator/npc_generator.py:41 ../src/dict/npc.py:21
 msgid "Wanderer"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:39 ../src/dict/npc.py:24
+#: ../src/npc_generator/npc_generator.py:42 ../src/dict/npc.py:24
 #, fuzzy
 msgid "Human"
 msgstr "Humah11"
 
-#: ../src/npc_generator/npc_generator.py:95
+#: ../src/npc_generator/npc_generator.py:102
 msgid "Victim"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:95
 #: ../src/npc_generator/npc_generator.py:102
+#: ../src/npc_generator/npc_generator.py:109
 msgid "Killer"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:120
+#: ../src/npc_generator/npc_generator.py:127
 msgid "Accomplice"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:129
+#: ../src/npc_generator/npc_generator.py:136
 msgid "Helper"
 msgstr ""
 
-#: ../src/npc_generator/npc_generator.py:139
+#: ../src/npc_generator/npc_generator.py:146
 msgid "Neutral"
 msgstr ""
 
@@ -57,28 +57,44 @@ msgstr ""
 msgid "Error decoding JSON data."
 msgstr ""
 
-#: ../src/game_window/game_window.py:53
+#: ../src/game_window/game_window.py:57
 msgid "To home"
 msgstr ""
 
-#: ../src/game_window/game_window.py:114
+#: ../src/game_window/game_window.py:118
 msgid "Map"
 msgstr ""
 
-#: ../src/game_window/game_window.py:124
+#: ../src/game_window/game_window.py:128
 msgid "Account"
 msgstr ""
 
-#: ../src/game_window/game_window.py:150
+#: ../src/game_window/game_window.py:136 ../src/game_window/game_window.py:160
+msgid "Save game"
+msgstr ""
+
+#: ../src/game_window/game_window.py:158
 msgid "New game"
 msgstr ""
 
-#: ../src/game_window/game_window.py:151
-msgid "Continue"
+#: ../src/game_window/game_window.py:159
+msgid "Load game"
 msgstr ""
 
-#: ../src/game_window/game_window.py:152
+#: ../src/game_window/game_window.py:161
 msgid "Exit"
+msgstr ""
+
+#: ../src/game_window/game_dialog.py:19
+msgid "Do you want create new game?"
+msgstr ""
+
+#: ../src/game_window/game_dialog.py:39
+msgid "Do you want to load game?"
+msgstr ""
+
+#: ../src/game_window/game_dialog.py:59
+msgid "Do you to save this game?"
 msgstr ""
 
 #: ../src/dict/npc.py:4

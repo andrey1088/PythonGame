@@ -1,13 +1,16 @@
 import sys
 import os
 import importlib
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout
 from PyQt6.QtCore import Qt
 from src.translation.translation import _
 
 from src.abstract_npc.abstract_npc import AbstractNpc
 from src.chat_system.chat_window import ChatWindow
 from src.utils.window import create_menu_button, create_button
+from src.game_window.game_dialog import NewGameDialog, LoadGameDialog, SaveGameDialog
+
+from src.database import save_game, load_game
 
 media_dir = os.path.join(os.path.dirname(__file__), "../media/")
 
@@ -130,13 +133,17 @@ class GameWindow(QMainWindow):
         layout.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
         go_home_button = create_menu_button(title=title)
+        save_game_button = create_menu_button(title=_('Save game'))
 
         if button_link == 'to_start':
             go_home_button.clicked.connect(self.create_start_page)
         else:
             go_home_button.clicked.connect(self.create_inquisitor_home)
 
+        save_game_button.clicked.connect(self.save_game)
+
         layout.addWidget(go_home_button)
+        layout.addWidget(save_game_button)
         left_column.setLayout(layout)
 
         return left_column
@@ -149,26 +156,55 @@ class GameWindow(QMainWindow):
 
         layout_menu = QVBoxLayout()
         new_game_button = create_menu_button(_('New game'))
-        continue_button = create_menu_button(_('Continue'))
+        continue_button = create_menu_button(_('Load game'))
+        save_game_button = create_menu_button(_('Save game'))
         exit_button = create_menu_button(_('Exit'))
 
         layout_menu.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
         new_game_button.clicked.connect(self.start_new_game)
+        continue_button.clicked.connect(self.load_game)
+        save_game_button.clicked.connect(self.save_game)
+        exit_button.clicked.connect(self.close)
 
         layout_menu.addWidget(new_game_button)
         layout_menu.addWidget(continue_button)
+        layout_menu.addWidget(save_game_button)
         layout_menu.addWidget(exit_button)
         menu_widget.setLayout(layout_menu)
 
         return menu_widget
 
     def start_new_game(self):
-        npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
-        generate_npc = getattr(npc_generator, 'generate_npc')
-        generate_npc()
-        self.get_person = getattr(npc_generator, 'get_person')
-        self.create_inquisitor_home()
+        dlg = NewGameDialog(self)
+        if dlg.exec():
+            npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
+            generate_npc = getattr(npc_generator, 'generate_npc')
+            generate_npc()
+            self.get_person = getattr(npc_generator, 'get_person')
+            self.create_inquisitor_home()
+        else:
+            print("Cancel!")
+
+    def load_game(self):
+        dlg = LoadGameDialog(self)
+        if dlg.exec():
+            game_data = load_game()
+            if game_data:
+                print("🎭 Продолжаем игру!")
+                return game_data  # Используем загруженные данные
+            else:
+                print("⚠️ Сохранение не найдено. Начинаем заново.")
+        else:
+            print("Cancel!")
+
+    def save_game(self):
+        dlg = SaveGameDialog(self)
+        if dlg.exec():
+            test_game_data = {'test date': 'some data'}
+            save_game(test_game_data)
+        else:
+            print("Cancel!")
 
     def show_tavern(self):
         self.change_location(f'{media_dir}places/tavern.png', 'Innkeeper')
