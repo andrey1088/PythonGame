@@ -9,14 +9,12 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 npc_data = {
     'npc_id': 0,
     'avatar': '',
+    'location': '',
     'person_type': 'Citizen',
     'role': '',
     'gender':'',
     'personalities': None,
     'pressure_response': None,
-    'murderer_info': None,
-    'accomplice_info': None,
-    'helper_info': None,
     'name': '',
     'race': '',
     'alibi': '',
@@ -30,15 +28,13 @@ npc_data = {
 class AbstractNpc:
     def __init__(self, npc_data, is_new=True):
         self.avatar = npc_data['avatar'] if 'avatar' in npc_data else ''
+        self.location = npc_data['location'] if 'location' in npc_data else ''
         self.person_type = npc_data['person_type'] if 'person_type' in npc_data else 'Citizen'
         self.npc_id = npc_data['npc_id'] if 'npc_id' in npc_data else 0
         self.role = npc_data['role'] if 'role' in npc_data else ''
         self.gender = npc_data['gender'] if 'gender' in npc_data else ''
         self.personalities = npc_data['personalities'] if 'personalities' in npc_data else []
         self.pressure_response = npc_data['pressure_response'] if 'pressure_response' in npc_data else []
-        self.murderer_info = npc_data['murderer_info'] if 'murderer_info' in npc_data else []
-        self.accomplice_info = npc_data['accomplice_info'] if 'accomplice_info' in npc_data else []
-        self.helper_info = npc_data['helper_info'] if 'helper_info' in npc_data else []
         self.name = npc_data['name'] if 'name' in npc_data else ''
         self.race = npc_data['race'] if 'race' in npc_data else ''
         self.alibi = npc_data['alibi'] if 'alibi' in npc_data else ''

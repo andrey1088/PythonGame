@@ -11,7 +11,6 @@ class GameInfo:
 game_info = GameInfo()
 
 def apply_loaded_data(data):
-    print(data)
     loaded_npc_list = data['npc_list']
     generate_loaded_npc(loaded_npc_list)
 

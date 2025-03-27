@@ -22,13 +22,12 @@ class Person(AbstractNpc):
         super().__init__(npc_data=data, is_new=True)
         if is_new:
             self.role = _(get_data('roles', 'npc')[data['npc_id']])
-            self.avatar = f"{get_data('roles', 'npc')[data['npc_id']]}.png"
+            self.location = f"{get_data('roles', 'npc')[data['npc_id']]}"
+            self.avatar = f"{self.location}.png"
             self.gender = _('Female') if get_data('roles', 'npc')[data['npc_id']] in get_data('female_roles', 'npc') else _(
                 'Male')
             self.personalities = []
             self.pressure_response = [_(random.choice(get_data('pressure_response', 'npc')))]
-            self.murderer_info = []
-            self.accomplice_info = []
             if self.gender == _('Female'):
                 self.name = assign_unique_name(available_female_names)
                 self.personalities = []
@@ -73,8 +72,6 @@ class Person(AbstractNpc):
             'personalities': self.personalities,
             'pressure_response': self.pressure_response,
             'connections': self.connections,
-            'murderer_info': self.murderer_info,
-            'accomplice_info': self.accomplice_info,
             'known_clues': self.known_clues
         })
 
@@ -87,6 +84,7 @@ def generate_npc() -> None:
 
 def generate_loaded_npc(loaded_npc_list) -> None:
     global npc_list
+    npc_list = []
     for npc in loaded_npc_list:
         if npc['person_type'] == 'Citizen':
             npc_list.append(Person(npc, False))
@@ -130,7 +128,8 @@ def assign_relationships(npc_list) -> None:
         accomplice.set_relationships(
             {
                 'role': _('Accomplice'),
-                'murderer_name': [npc_list[0].name],
+                'murderer_name': npc_list[0].name,
+                'murderer_role': npc_list[0].role,
                 'victim_name': npc_list[1].name,
                 'victim_role': npc_list[1].role
             })
@@ -159,6 +158,14 @@ def get_npc(role: str) -> Person or None:
             return npc
 
     return None
+
+def get_npcs_by_location(location: str) -> Person or None:
+    npcs_by_location = []
+    for npc in npc_list:
+        if npc.location == location:
+            npcs_by_location.append(npc)
+
+    return npcs_by_location
 
 def update_npc(npc, relationship_change):
     """Обновляет данные NPC после диалога."""

@@ -19,6 +19,7 @@ class GameWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.get_npcs_by_location = None
         self.get_npc = None
         self.chat_window = None
         self.centralWidget = None
@@ -190,6 +191,7 @@ class GameWindow(QMainWindow):
             generate_npc = getattr(npc_generator, 'generate_npc')
             generate_npc()
             self.get_npc = getattr(npc_generator, 'get_npc')
+            self.get_npcs_by_location = getattr(npc_generator, 'get_npcs_by_location')
             self.is_game_started = True
             self.create_inquisitor_home()
         else:
@@ -230,6 +232,7 @@ class GameWindow(QMainWindow):
                     dialog.accept()
                     npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
                     self.get_npc = getattr(npc_generator, 'get_npc')
+                    self.get_npcs_by_location = getattr(npc_generator, 'get_npcs_by_location')
                     self.is_game_started = True
                     self.create_inquisitor_home()
 
@@ -275,7 +278,7 @@ class GameWindow(QMainWindow):
     def show_torture(self):
         self.change_location(f'{media_dir}places/torture.png')
 
-    def change_location(self, background, npc=None):
+    def change_location(self, background, location):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setStyleSheet(f"background-image: url('{background}');")
@@ -293,13 +296,15 @@ class GameWindow(QMainWindow):
 
         layout_wrapper.addWidget(widget_inner)
 
-        if npc is not None:
-            person = self.get_npc(_(npc))
-            if person.connections['role'] != 'Victim':
-                avatar_button = create_button(person.name, f'{media_dir}avatars/{person.avatar}', 18)
-                avatar_button.setMaximumWidth(200)
-                layout_wrapper.addWidget(avatar_button)
-                avatar_button.clicked.connect(lambda: self.start_chat(person))
+        npcs_by_location_list = self.get_npcs_by_location(location)
+
+        if len(npcs_by_location_list):
+            for npc in npcs_by_location_list:
+                if npc.connections['role'] != 'Victim':
+                    avatar_button = create_button(npc.name, f'{media_dir}avatars/{npc.avatar}', 18)
+                    avatar_button.setMaximumWidth(200)
+                    layout_wrapper.addWidget(avatar_button)
+                    avatar_button.clicked.connect(lambda: self.start_chat(npc))
 
         central_widget.setLayout(layout_wrapper)
         central_widget.setContentsMargins(20, 20, 20, 20)

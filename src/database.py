@@ -46,18 +46,6 @@ def serialize_npc(npc):
     """Сериализует NPC, включая вложенные объекты."""
     npc_data = npc.__dict__.copy()
 
-    # Преобразуем вложенные объекты, если они есть
-    # if isinstance(npc_data.get('accomplice_info'), Accomplice):
-    #     npc_data['accomplice_info'] = npc_data['accomplice_info'].__dict__
-    #     npc_data['accomplice_info']['killer'] = npc_data['accomplice_info']['killer'].__dict__
-    #     if not type(npc_data['accomplice_info']['killer']['murderer_info']) is dict:
-    #         npc_data['accomplice_info']['killer']['murderer_info'] = npc_data['accomplice_info']['killer']['murderer_info'].__dict__
-    # if isinstance(npc_data.get('helper_info'), Helper):
-    #     npc_data['helper_info'] = npc_data['helper_info'].__dict__
-    #
-    # if isinstance(npc_data.get('murderer_info'), Ritualist) or isinstance(npc_data.get('murderer_info'), Possessed) or isinstance(npc_data.get('murderer_info'), Avenger):
-    #     npc_data['murderer_info'] = npc_data['murderer_info'].__dict__
-
     return npc_data
 
 def get_save_slots():
