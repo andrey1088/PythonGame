@@ -1,25 +1,25 @@
 from src.abstract_npc.abstract_npc import AbstractNpc
 
-class Accomplice:
-    def __init__(self, npc):
-        super().__init__()
-        self.name = 'Accomplice'
+class Accomplice(AbstractNpc):
+    def __init__(self, npc, is_new=True):
+        super().__init__(npc, is_new)
+        self.person_type = 'Accomplice'
         self.clues = []
-        self.killer = []
+        self.murderer = []
 
     def assign_clues(self, clues):
         """Сообщник знает все улики убийцы."""
-        self.clues = clues
+        self.clues = clues['SecretClues']
 
-    def assign_killer_info(self, killer):
+    def assign_murderer_info(self, murderer):
         """Сообщник знает все улики убийцы."""
-        self.killer = killer
+        self.murderer = murderer
 
 # Function to randomly assign a murderer type
-def assign_accomplice_type(npc: AbstractNpc, killer: AbstractNpc) -> Accomplice:
+def assign_accomplice_type(npc, murderer) -> Accomplice:
     accomplice = Accomplice(npc)
-    accomplice.assign_clues(killer.murderer_info.clues)
-    accomplice.assign_killer_info(killer)
+    accomplice.assign_clues(murderer['clues'])
+    accomplice.assign_murderer_info(murderer)
 
     return accomplice
 

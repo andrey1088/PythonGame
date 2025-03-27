@@ -1,7 +1,7 @@
 import sys
 import os
 import importlib
-from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout, QListWidget, QPushButton
 from PyQt6.QtCore import Qt
 from src.translation.translation import _
 
@@ -9,8 +9,9 @@ from src.abstract_npc.abstract_npc import AbstractNpc
 from src.chat_system.chat_window import ChatWindow
 from src.utils.window import create_menu_button, create_button
 from src.game_window.game_dialog import NewGameDialog, LoadGameDialog, SaveGameDialog
+from src.game_info.game_info import apply_loaded_data
 
-from src.database import save_game, load_game
+from src.database import save_game, load_game, get_save_slots
 
 media_dir = os.path.join(os.path.dirname(__file__), "../media/")
 
@@ -157,20 +158,26 @@ class GameWindow(QMainWindow):
 
         layout_menu = QVBoxLayout()
         new_game_button = create_menu_button(_('New game'))
-        continue_button = create_menu_button(_('Load game'))
+        load_game_button = create_menu_button(_('Load game'))
+        continue_button = create_menu_button(_('Continue'))
         save_game_button = create_menu_button(title=_('Save game'), is_disabled=not self.is_game_started)
         exit_button = create_menu_button(_('Exit'))
 
         layout_menu.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
         new_game_button.clicked.connect(self.start_new_game)
-        continue_button.clicked.connect(self.load_game)
+        load_game_button.clicked.connect(self.load_game)
         save_game_button.clicked.connect(self.save_game)
+        continue_button.clicked.connect(self.create_inquisitor_home)
         exit_button.clicked.connect(self.close)
 
         layout_menu.addWidget(new_game_button)
-        layout_menu.addWidget(continue_button)
+        layout_menu.addWidget(load_game_button)
         layout_menu.addWidget(save_game_button)
+
+        if self.is_game_started:
+            layout_menu.addWidget(continue_button)
+
         layout_menu.addWidget(exit_button)
         menu_widget.setLayout(layout_menu)
 
@@ -189,16 +196,46 @@ class GameWindow(QMainWindow):
             print("Cancel!")
 
     def load_game(self):
-        dlg = LoadGameDialog(self)
-        if dlg.exec():
-            game_data = load_game()
-            if game_data:
-                print("🎭 Продолжаем игру!")
-                return game_data  # Используем загруженные данные
-            else:
-                print("⚠️ Сохранение не найдено. Начинаем заново.")
-        else:
-            print("Cancel!")
+        """Вызывается при нажатии кнопки 'Загрузить игру'."""
+        save_slots = get_save_slots()
+
+        if not save_slots:
+            print("⚠️ Нет сохранений!")
+            return
+
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Выберите сохранение")
+
+        layout = QVBoxLayout()
+        list_widget = QListWidget()
+
+        # Добавляем слоты в список
+        for slot in save_slots:
+            list_widget.addItem(slot)
+
+        layout.addWidget(list_widget)
+
+        load_button = QPushButton("Загрузить")
+        layout.addWidget(load_button)
+
+        dialog.setLayout(layout)
+
+        def on_load_clicked():
+            selected_item = list_widget.currentItem()
+            if selected_item:
+                selected_slot = selected_item.text()
+                game_data = load_game(selected_slot)
+                if game_data:
+                    apply_loaded_data(game_data)
+                    dialog.accept()
+                    npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
+                    self.get_npc = getattr(npc_generator, 'get_npc')
+                    self.is_game_started = True
+                    self.create_inquisitor_home()
+
+        load_button.clicked.connect(on_load_clicked)
+
+        dialog.exec()
 
     def save_game(self):
         if self.is_game_started:
@@ -258,10 +295,11 @@ class GameWindow(QMainWindow):
 
         if npc is not None:
             person = self.get_npc(_(npc))
-            avatar_button = create_button(person.name, f'{media_dir}avatars/{person.avatar}', 18)
-            avatar_button.setMaximumWidth(200)
-            layout_wrapper.addWidget(avatar_button)
-            avatar_button.clicked.connect(lambda: self.start_chat(person))
+            if person.connections['role'] != 'Victim':
+                avatar_button = create_button(person.name, f'{media_dir}avatars/{person.avatar}', 18)
+                avatar_button.setMaximumWidth(200)
+                layout_wrapper.addWidget(avatar_button)
+                avatar_button.clicked.connect(lambda: self.start_chat(person))
 
         central_widget.setLayout(layout_wrapper)
         central_widget.setContentsMargins(20, 20, 20, 20)

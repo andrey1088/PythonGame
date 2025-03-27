@@ -1,9 +1,9 @@
 from src.abstract_npc.abstract_npc import AbstractNpc
 
-class Helper:
-    def __init__(self, npc):
-        super().__init__()
-        self.name = 'Helper'
+class Helper(AbstractNpc):
+    def __init__(self, npc, is_new=True):
+        super().__init__(npc, is_new)
+        self.person_type = 'Helper'
         self.clues = []
 
     def assign_clues(self, clue):
@@ -11,7 +11,7 @@ class Helper:
         self.clues.append(clue)
 
 # Function to randomly assign a murderer type
-def assign_helper_type(npc: AbstractNpc, clue: str) -> Helper:
+def assign_helper_type(npc, clue: str) -> Helper:
     helper = Helper(npc)
     helper.assign_clues(clue)
 

@@ -1,10 +1,10 @@
 import random
 from src.translation.translation import _
-from src.murderer_generator.murderer_generator import assign_murderer_type
-from src.accomplice_generator.accomlice_generator import assign_accomplice_type
-from src.helper_generator.helper_generator import assign_helper_type
+from src.murderer_generator.murderer_generator import assign_murderer_type, Ritualistic, Possessed, Avenger, Accidental
+from src.accomplice_generator.accomlice_generator import assign_accomplice_type, Accomplice
+from src.helper_generator.helper_generator import assign_helper_type, Helper
 from src.utils.utils import get_data
-from src.abstract_npc.abstract_npc import AbstractNpc
+from src.abstract_npc.abstract_npc import AbstractNpc, npc_data
 
 available_male_names = get_data('male_names', 'npc')
 available_female_names = get_data('female_names', 'npc')
@@ -18,14 +18,12 @@ def assign_unique_name(available_names):
 class Person(AbstractNpc):
     used_names = set()  # To track assigned names
 
-    def __init__(self, npc_id, is_new=True):
-        super().__init__()
-        self.id = npc_id
-
+    def __init__(self, data, is_new=True):
+        super().__init__(npc_data=data, is_new=True)
         if is_new:
-            self.role = _(get_data('roles', 'npc')[npc_id])
-            self.avatar = f"{get_data('roles', 'npc')[npc_id]}.png"
-            self.gender = _('Female') if get_data('roles', 'npc')[npc_id] in get_data('female_roles', 'npc') else _(
+            self.role = _(get_data('roles', 'npc')[data['npc_id']])
+            self.avatar = f"{get_data('roles', 'npc')[data['npc_id']]}.png"
+            self.gender = _('Female') if get_data('roles', 'npc')[data['npc_id']] in get_data('female_roles', 'npc') else _(
                 'Male')
             self.personalities = []
             self.pressure_response = [_(random.choice(get_data('pressure_response', 'npc')))]
@@ -39,16 +37,13 @@ class Person(AbstractNpc):
             else:
                 self.name = assign_unique_name(available_male_names)
             race = _('Vampire') if self.role == _('Wanderer') else random.choice(get_data('races', 'npc'))
-            self.race = _(race) if get_data('roles', 'npc')[npc_id] in get_data('non_humans', 'npc') else _('Human')
+            self.race = _(race) if get_data('roles', 'npc')[data['npc_id']] in get_data('non_humans', 'npc') else _('Human')
             self.personalities.append(_(random.choice(get_data('personalities', 'npc'))))
 
             self.alibi = 'Unknown'
             self.connections = {}
             self.suspect = False
             self.known_clues = []
-
-    def set_relationships(self, relationships: dict) -> None:
-        self.connections = relationships
 
     def get_clues(self, pressure_method):
         """Определяет, какие улики NPC готов раскрыть в зависимости от метода давления."""
@@ -70,10 +65,6 @@ class Person(AbstractNpc):
         else:
             return 'Я ничего не знаю...'
 
-    def update_relationship(self, change):
-        """Изменяет отношение NPC к инквизитору."""
-        self.relationship_with_inquisitor += change
-
     def __repr__(self):
         return str({
             'name': self.name,
@@ -91,64 +82,75 @@ npc_list = []
 
 def generate_npc() -> None:
     global npc_list
-    npc_list = [Person(i) for i in range(len(get_data('roles', 'npc')))]
-    assign_relationships()
+    npc_list = [Person(data={'is_new': True, 'npc_id': i}) for i in range(len(get_data('roles', 'npc')))]
+    assign_relationships(npc_list)
+
+def generate_loaded_npc(loaded_npc_list) -> None:
+    global npc_list
+    for npc in loaded_npc_list:
+        if npc['person_type'] == 'Citizen':
+            npc_list.append(Person(npc, False))
+        if npc['person_type'] == 'Accomplice':
+            npc_list.append(Accomplice(npc, False))
+        if npc['person_type'] == 'Ritualistic':
+            npc_list.append(Ritualistic(npc, False))
+        if npc['person_type'] == 'Possessed':
+            npc_list.append(Possessed(npc, False))
+        if npc['person_type'] == 'Avenger':
+            npc_list.append(Avenger(npc, False))
+        if npc['person_type'] == 'Accidental':
+            npc_list.append(Accidental(npc, False))
+        if npc['person_type'] == 'Helper':
+            npc_list.append(Helper(npc, False))
+
+    print(npc_list)
 
 def get_npc_list() -> npc_list:
     return npc_list
 
 # Assign relationships
-def assign_relationships() -> None:
+def assign_relationships(npc_list) -> None:
     random.shuffle(npc_list)
 
-    # Assign main roles
-    main_roles = [_('Victim'), _('Killer')]
-    main_npcs = random.sample(npc_list, 2)
-    murderer = None
-    victim = None
-
-    for i in range(len(main_roles)):
-        main_npcs[i].set_relationships({'role': main_roles[i]})
-        if main_roles[i] == _('Killer'):
-            murderer = main_npcs[i]
-            murderer.murderer_info = assign_murderer_type(murderer)
-        else:
-            victim = main_npcs[i]
+    npc_list[0] = assign_murderer_type(npc_list[0].__dict__.copy())
+    npc_list[0].set_relationships({'role': 'Murderer'})
+    npc_list[1].set_relationships({'role': 'Victim'})
 
     for npc in npc_list:
-        npc.known_clues = murderer.murderer_info.clues['PublicClues']
+        npc.known_clues = npc_list[0].clues['PublicClues']
 
     # Assign 2 accomplices, 3 helpers, and 2 neutrals
-    accomplices = random.sample([npc for npc in npc_list if npc not in main_npcs], 2)
-    helpers = random.sample([npc for npc in npc_list if npc not in accomplices and npc not in main_npcs], 3)
-    neutral_npcs = [npc for npc in npc_list if npc not in accomplices and npc not in helpers and npc not in main_npcs]
+    accomplices = npc_list[2:4]
+    helpers = npc_list[4:7]
+    neutral_npcs = npc_list[7:]
 
     # Set connections
-    for accomplice in accomplices:
+    for index, accomplice in enumerate(accomplices):
+        accomplice = assign_accomplice_type(accomplice.__dict__.copy(), npc_list[0].__dict__.copy())
         accomplice.set_relationships(
             {
                 'role': _('Accomplice'),
-                'knows_about': [murderer.name],
-                'victim_name': victim.name,
-                'victim_role': victim.role
+                'murderer_name': [npc_list[0].name],
+                'victim_name': npc_list[1].name,
+                'victim_role': npc_list[1].role
             })
-        accomplice.accomplice_info = assign_accomplice_type(accomplice, murderer)
+        npc_list[index+2] = accomplice
     for index, helper in enumerate(helpers):
+        clue = npc_list[0].clues['SecretClues'][index]
+        helper = assign_helper_type(helper.__dict__.copy(), clue=clue)
         helper.set_relationships(
             {
                 'role': _('Helper'),
-                'knows_about': [victim.name],
-                'victim_name': victim.name,
-                'victim_role': victim.role
+                'victim_name': npc_list[1].name,
+                'victim_role': npc_list[1].role
             })
-        clue = murderer.murderer_info.clues['SecretClues'][index]
-        helper.helper_info = assign_helper_type(helper, clue=clue)
+        npc_list[index + 4] = helper
     for neutral in neutral_npcs:
         neutral.set_relationships(
             {
                 'role': _('Neutral'),
-                'victim_name': victim.name,
-                'victim_role': victim.role
+                'victim_name': npc_list[1].name,
+                'victim_role': npc_list[1].role
             })
 
 def get_npc(role: str) -> Person or None:
