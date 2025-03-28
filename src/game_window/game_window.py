@@ -8,7 +8,7 @@ from src.translation.translation import _
 from src.abstract_npc.abstract_npc import AbstractNpc
 from src.chat_system.chat_window import ChatWindow
 from src.utils.window import create_menu_button, create_button
-from src.game_window.game_dialog import NewGameDialog, LoadGameDialog, SaveGameDialog
+from src.game_window.game_dialog import NewGameDialog, LoadGameDialog, SaveGameDialog, AskForConfirmationDialog
 from src.game_info.game_info import apply_loaded_data
 
 from src.database import save_game, load_game, get_save_slots
@@ -23,6 +23,7 @@ class GameWindow(QMainWindow):
         self.get_npc = None
         self.chat_window = None
         self.centralWidget = None
+        self.ask_for_confirmation_dialog = None
         self.setWindowTitle("Inquisition Game")
         self.setGeometry(100, 100, 1024, 800)  # Устанавливаем квадратное окно
         self.setMinimumSize(1024, 800)  # Минимальный размер
@@ -185,7 +186,27 @@ class GameWindow(QMainWindow):
         return menu_widget
 
     def start_new_game(self):
+        if self.is_game_started:
+            self.ask_for_saving_game(self.create_new_game)
+        else:
+            self.create_new_game()
+
+    def ask_for_saving_game(self, callback=None):
+        self.ask_for_confirmation_dialog = AskForConfirmationDialog(
+            self,
+            title=_('Do you want to save game'),
+            msg=_('There is no saved data. It will be lost. Do you want to save game?')
+        )
+
+        if self.ask_for_confirmation_dialog.exec():
+            self.save_game(callback)
+        elif callback:
+            callback()
+
+
+    def create_new_game(self):
         dlg = NewGameDialog(self)
+
         if dlg.exec():
             npc_generator = importlib.import_module("src.npc_generator.%s" % 'npc_generator')
             generate_npc = getattr(npc_generator, 'generate_npc')
@@ -198,7 +219,6 @@ class GameWindow(QMainWindow):
             print("Cancel!")
 
     def load_game(self):
-        """Вызывается при нажатии кнопки 'Загрузить игру'."""
         save_slots = get_save_slots()
 
         if not save_slots:
@@ -211,7 +231,6 @@ class GameWindow(QMainWindow):
         layout = QVBoxLayout()
         list_widget = QListWidget()
 
-        # Добавляем слоты в список
         for slot in save_slots:
             list_widget.addItem(slot)
 
@@ -240,12 +259,16 @@ class GameWindow(QMainWindow):
 
         dialog.exec()
 
-    def save_game(self):
+    def save_game(self, callback=None):
         if self.is_game_started:
             dlg = SaveGameDialog(self)
             if dlg.exec():
                 save_game(dlg.new_save_name)
+                if callback:
+                    callback()
             else:
+                if self.ask_for_confirmation_dialog:
+                    self.ask_for_confirmation_dialog.close()
                 print("Cancel!")
 
     def show_tavern(self):
@@ -278,7 +301,7 @@ class GameWindow(QMainWindow):
     def show_torture(self):
         self.change_location(f'{media_dir}places/torture.png')
 
-    def change_location(self, background, location):
+    def change_location(self, background, location=''):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setStyleSheet(f"background-image: url('{background}');")

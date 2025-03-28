@@ -71,3 +71,24 @@ class SaveGameDialog(QDialog):
     def accept(self):
         if self.new_save_name:
             super().accept()
+
+class AskForConfirmationDialog(QDialog):
+    def __init__(self, parent=None, title='Confirmation', msg=''):
+        super().__init__(parent)
+
+        self.setWindowTitle(title)
+
+        QBtn = (
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
+        )
+
+        self.buttonBox = QDialogButtonBox(QBtn)
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
+
+        layout = QVBoxLayout()
+        if msg:
+            message = QLabel(msg)
+            layout.addWidget(message)
+        layout.addWidget(self.buttonBox)
+        self.setLayout(layout)
