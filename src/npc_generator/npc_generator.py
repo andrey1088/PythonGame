@@ -22,8 +22,8 @@ class Person(AbstractNpc):
         super().__init__(npc_data=data, is_new=True)
         if is_new:
             self.role = _(get_data('roles', 'npc')[data['npc_id']])
-            self.location = f"{get_data('roles', 'npc')[data['npc_id']]}"
-            self.avatar = f"{self.location}.png"
+            self.location = f"{get_data('locations', 'npc')[data['npc_id']]}"
+            self.avatar = f"{get_data('roles', 'npc')[data['npc_id']]}.png"
             self.gender = _('Female') if get_data('roles', 'npc')[data['npc_id']] in get_data('female_roles', 'npc') else _(
                 'Male')
             self.personalities = []

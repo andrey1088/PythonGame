@@ -1,7 +1,7 @@
 import sys
 import os
 import importlib
-from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout, QListWidget, QPushButton
+from PyQt6.QtWidgets import QApplication, QMainWindow, QDialog, QVBoxLayout, QHBoxLayout, QWidget, QGridLayout, QListWidget, QPushButton, QLabel
 from PyQt6.QtCore import Qt
 from src.translation.translation import _
 
@@ -10,6 +10,7 @@ from src.chat_system.chat_window import ChatWindow
 from src.utils.window import create_menu_button, create_button
 from src.game_window.game_dialog import NewGameDialog, LoadGameDialog, SaveGameDialog, AskForConfirmationDialog
 from src.game_info.game_info import apply_loaded_data
+from functools import partial
 
 from src.database import save_game, load_game, get_save_slots
 
@@ -88,16 +89,16 @@ class GameWindow(QMainWindow):
         layout_wrapper.addWidget(stacked_widget)
 
         locations = {
-            'tavern': self.show_tavern,
-            'forge': self.show_blacksmith,
-            'chapel': self.show_chapel,
-            'market': self.show_market,
-            'outskirts': self.show_forest,
-            'abandoned_house': self.show_abandoned_house,
-            'healers_place': self.show_healers_place,
-            'hunters_place': self.show_hunters_place,
-            'library': self.show_library,
-            'torture': self.show_torture
+            'tavern': lambda : self.change_location(background=f'{media_dir}places/tavern.png', location='tavern', inner_locations=None),
+            'forge': lambda : self.change_location(background=f'{media_dir}places/forge.png', location='forge', inner_locations=None),
+            'chapel': lambda : self.change_location(background=f'{media_dir}places/chapel.png', location='chapel', inner_locations=None),
+            'market': lambda : self.change_location(background=f'{media_dir}places/market.png', location='market', inner_locations=None),
+            'outskirts': lambda : self.change_location(background=f'{media_dir}places/outskirts.png', location='outskirts', inner_locations=None),
+            'abandoned_house': lambda : self.change_location(background=f'{media_dir}places/abandoned_house.png', location='abandoned_house', inner_locations=None),
+            'healers_place': lambda : self.change_location(background=f'{media_dir}places/healers_place.png', location='healers_place', inner_locations=None),
+            'hunters_place': lambda : self.change_location(background=f'{media_dir}places/hunters_place.png', location='hunters_place', inner_locations=None),
+            'library': lambda : self.change_location(background=f'{media_dir}places/library.png', location='library', inner_locations=None),
+            'torture': lambda : self.change_location(background=f'{media_dir}places/torture.png', location='torture', inner_locations=None)
         }
 
         row, col = 0, 0
@@ -112,19 +113,23 @@ class GameWindow(QMainWindow):
                 col = 0
                 row += 1
 
-    def create_right_column(self):
+    def create_right_column(self, button=None):
         right_column = QWidget()
         layout = QVBoxLayout()
         right_column.setStyleSheet("background: transparent;")
 
         layout.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop)
 
-        map_button = create_button(_('Map'), f'{media_dir}icons/map.png')
-        map_button.setMaximumWidth(160)
-        map_button.setMinimumWidth(160)
-        map_button.clicked.connect(self.create_map_page)
+        if not button:
+            rendered_button = create_button(_('Map'), f'{media_dir}icons/map.png')
+        else:
+            rendered_button = create_button(_({button['']}), f'{media_dir}icons/map.png')
 
-        layout.addWidget(map_button)
+        rendered_button.setMaximumWidth(160)
+        rendered_button.setMinimumWidth(160)
+        rendered_button.clicked.connect(self.create_map_page)
+
+        layout.addWidget(rendered_button)
         right_column.setLayout(layout)
 
         return right_column
@@ -271,37 +276,10 @@ class GameWindow(QMainWindow):
                     self.ask_for_confirmation_dialog.close()
                 print("Cancel!")
 
-    def show_tavern(self):
-        self.change_location(f'{media_dir}places/tavern.png', 'Innkeeper')
-
-    def show_blacksmith(self):
-        self.change_location(f'{media_dir}places/forge.png', 'Blacksmith')
-
-    def show_chapel(self):
-        self.change_location(f'{media_dir}places/chapel.png', 'Priest')
-
-    def show_market(self):
-        self.change_location(f'{media_dir}places/market.png', 'Merchant')
-
-    def show_forest(self):
-        self.change_location(f'{media_dir}places/outskirts.png', 'Wanderer')
-
-    def show_abandoned_house(self):
-        self.change_location(f'{media_dir}places/abandoned_house.png', 'Farmer')
-
-    def show_healers_place(self):
-        self.change_location(f'{media_dir}places/healers_place.png', 'Healer')
-
-    def show_hunters_place(self):
-        self.change_location(f'{media_dir}places/hunters_place.png', 'Hunter')
-
-    def show_library(self):
-        self.change_location(f'{media_dir}places/library.png')
-
     def show_torture(self):
         self.change_location(f'{media_dir}places/torture.png')
 
-    def change_location(self, background, location=''):
+    def change_location(self, background, location='', inner_locations=None):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         central_widget.setStyleSheet(f"background-image: url('{background}');")
@@ -310,9 +288,19 @@ class GameWindow(QMainWindow):
         layout_wrapper.setSpacing(0)
 
         layout_inner = QHBoxLayout()
+        layout_inner.setSpacing(0)
+        layout_inner.setContentsMargins(0, 0, 0, 0)
+
+        layout_bottom = QGridLayout()
+        layout_bottom.setSpacing(0)
+        layout_bottom.setContentsMargins(0, 0, 0, 0)
+
         widget_inner = QWidget()
+        widget_bottom = QWidget()
         widget_inner.setLayout(layout_inner)
-        widget_inner.setStyleSheet(f"background: transparent;")
+        widget_inner.setStyleSheet("background: transparent;")
+        widget_bottom.setLayout(layout_bottom)
+        widget_bottom.setStyleSheet("background: transparent;")
 
         right_column = self.create_right_column()
         layout_inner.addWidget(right_column)
@@ -322,12 +310,25 @@ class GameWindow(QMainWindow):
         npcs_by_location_list = self.get_npcs_by_location(location)
 
         if len(npcs_by_location_list):
-            for npc in npcs_by_location_list:
+            for index, npc in enumerate(npcs_by_location_list):
                 if npc.connections['role'] != 'Victim':
                     avatar_button = create_button(npc.name, f'{media_dir}avatars/{npc.avatar}', 18)
                     avatar_button.setMaximumWidth(200)
-                    layout_wrapper.addWidget(avatar_button)
-                    avatar_button.clicked.connect(lambda: self.start_chat(npc))
+                    avatar_button.setMinimumWidth(200)
+                    avatar_button.setMaximumHeight(200)
+                    avatar_button.clicked.connect(partial(self.start_chat, npc))
+                    layout_bottom.addWidget(avatar_button, index, 0, Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignBottom)
+
+        if inner_locations:
+            for inner_location in inner_locations:
+                inner_location_button = create_button(inner_location, f'{media_dir}icons/{inner_location}.png', 18)
+                inner_location_button.setMaximumWidth(200)
+                inner_location_button.setMinimumWidth(200)
+                inner_location_button.setMaximumHeight(200)
+                layout_bottom.addWidget(inner_location_button, 0, 1, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
+                inner_location_button.clicked.connect(lambda: self.change_location(f'{media_dir}places/{inner_location}'))
+
+        layout_wrapper.addWidget(widget_bottom)
 
         central_widget.setLayout(layout_wrapper)
         central_widget.setContentsMargins(20, 20, 20, 20)
